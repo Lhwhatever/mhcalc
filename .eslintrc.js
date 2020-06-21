@@ -24,6 +24,7 @@ module.exports = {
     rules: {
         'linebreak-style': ['error', 'unix'],
         quotes: ['error', 'single'],
-        semi: ['error', 'never']
+        semi: ['error', 'never'],
+        '@typescript-eslint/no-non-null-assertion': 'off'
     }
 }
