@@ -1,6 +1,6 @@
-import React from 'react'
-import NextLink from 'next/link'
 import { Button, Link as MuiLink } from '@material-ui/core'
+import NextLink from 'next/link'
+import React from 'react'
 
 interface LinkProps {
     href?: string
@@ -20,9 +20,9 @@ function asNextLink<P extends Record<string, unknown>>(Component: React.Componen
     return AsNextLink
 }
 
-export function wrapNextLink(element: JSX.Element | JSX.Element[], href = '#'): JSX.Element {
+export function wrapNextLink(element: JSX.Element | JSX.Element[], href = '#', propsToInject = undefined): JSX.Element {
     return (
-        <NextLink href={href} passHref>
+        <NextLink href={href} passHref {...(propsToInject || {})}>
             {element}
         </NextLink>
     )
