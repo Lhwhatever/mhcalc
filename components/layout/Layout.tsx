@@ -15,10 +15,10 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 interface LayoutProps {
-    children: React.ReactNode
+    children?: React.ReactNode
 }
 
-const Layout = ({ children }: LayoutProps): JSX.Element => {
+const Layout = ({ children = [] }: LayoutProps): JSX.Element => {
     const classes = useStyles()
     const useAltDrawer = useMediaQuery((theme: Theme) => theme.breakpoints.up(altDrawerMinBreakpoint))
     const usePersistentDrawer = useMediaQuery((theme: Theme) => theme.breakpoints.only('sm'))
