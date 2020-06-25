@@ -1,8 +1,8 @@
 import { Box, Typography } from '@material-ui/core'
 import { styled } from '@material-ui/core/styles'
 import React from 'react'
-import { ButtonLink } from '../components/AsNextLink'
 import Layout from '../components/layout/Layout'
+import { ButtonLink } from '../components/link/asNextLink'
 import endpoints from '../endpoints'
 
 export const MenuButton = styled(ButtonLink)({
