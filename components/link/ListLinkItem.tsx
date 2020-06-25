@@ -2,13 +2,13 @@ import { ListItem, ListItemText } from '@material-ui/core'
 import NextLink from 'next/link'
 import React from 'react'
 
-export interface ListLinkItemInternalProps {
+interface ListLinkItemInternalProps {
     children: React.ReactNode
     className?: string
     styles?: React.CSSProperties
 }
 
-export const InternalListLinkItem = React.forwardRef(
+const InternalListLinkItem = React.forwardRef(
     ({ children, ...other }: ListLinkItemInternalProps, ref: React.Ref<HTMLDivElement>) => (
         <ListItem button ref={ref} {...other}>
             <ListItemText>{children}</ListItemText>
