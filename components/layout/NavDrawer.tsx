@@ -3,18 +3,16 @@ import {
     Divider,
     IconButton,
     List,
-    ListItem,
-    ListSubheader,
     makeStyles,
     SwipeableDrawer,
     SwipeableDrawerProps,
     Theme
 } from '@material-ui/core'
-import ListItemText from '@material-ui/core/ListItemText'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import React from 'react'
-import endpoints from '../../endpoints'
-import { wrapNextLink } from '../AsNextLink'
+import { Endpoint } from '../../endpoints'
+import ListLinkItem from '../link/ListLinkItem'
+import DrawerSubList from './DrawerSubList'
 
 const useStyles = makeStyles((theme: Theme) => ({
     drawerHeader: {
@@ -27,13 +25,15 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }))
 
-export type NavDrawerProps = SwipeableDrawerProps
+export type NavDrawerProps = SwipeableDrawerProps & { endpoints: Record<string, Endpoint[]> }
 
-const NavDrawer = (props: SwipeableDrawerProps): JSX.Element => {
+const NavDrawer = (props: NavDrawerProps): JSX.Element => {
+    const { endpoints, ...other } = props
+
     const classes = useStyles()
 
     return (
-        <SwipeableDrawer {...props}>
+        <SwipeableDrawer {...other}>
             <Box className={classes.drawerHeader}>
                 <IconButton onClick={props.onClose} aria-label="close">
                     <ChevronLeftIcon />
@@ -41,33 +41,9 @@ const NavDrawer = (props: SwipeableDrawerProps): JSX.Element => {
             </Box>
             <Box component="div" overflow="auto">
                 <List component="nav" aria-label="navigation drawer">
-                    {wrapNextLink(
-                        <ListItem button>
-                            <ListItemText>Home</ListItemText>
-                        </ListItem>,
-                        '/'
-                    )}
+                    <ListLinkItem href="/">Home</ListLinkItem>
                     <Divider />
-                    <List
-                        component="div"
-                        aria-labelledby="calculator-list-header"
-                        subheader={
-                            <ListSubheader component="div" id="calculator-list-header">
-                                Calculators
-                            </ListSubheader>
-                        }
-                    >
-                        {endpoints.calculators.map((e) =>
-                            wrapNextLink(
-                                <ListItem button>
-                                    <ListItemText>{e.name}</ListItemText>
-                                </ListItem>,
-                                e.path,
-                                { key: e.name }
-                            )
-                        )}
-                    </List>
-                    <Divider />
+                    <DrawerSubList component="div" subheader="Calculators" endpoints={endpoints.calculators} />
                 </List>
             </Box>
         </SwipeableDrawer>

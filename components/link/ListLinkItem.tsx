@@ -1,19 +1,29 @@
-import { ListItem, ListItemText } from '@material-ui/core'
+import { ListItem, ListItemText, makeStyles } from '@material-ui/core'
+import clsx from 'clsx'
 import NextLink from 'next/link'
 import React from 'react'
+
+const useStyles = makeStyles({
+    active: {}
+})
 
 interface ListLinkItemInternalProps {
     children: React.ReactNode
     className?: string
+    active?: boolean
     styles?: React.CSSProperties
 }
 
 const InternalListLinkItem = React.forwardRef(
-    ({ children, ...other }: ListLinkItemInternalProps, ref: React.Ref<HTMLDivElement>) => (
-        <ListItem button ref={ref} {...other}>
-            <ListItemText>{children}</ListItemText>
-        </ListItem>
-    )
+    ({ children, active = false, className, ...other }: ListLinkItemInternalProps, ref: React.Ref<HTMLDivElement>) => {
+        const classes = useStyles()
+
+        return (
+            <ListItem button ref={ref} className={clsx(className, active ? classes.active : undefined)} {...other}>
+                <ListItemText>{children}</ListItemText>
+            </ListItem>
+        )
+    }
 )
 
 InternalListLinkItem.displayName = 'InternalListLinkItem'

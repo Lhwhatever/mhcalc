@@ -2,6 +2,7 @@ import { Box, makeStyles, Theme, Toolbar, useMediaQuery } from '@material-ui/cor
 import React from 'react'
 import Navbar from './Navbar'
 import NavDrawer from './NavDrawer'
+import endpoints from '../../endpoints'
 
 export const altDrawerWidth = 240
 export const altDrawerMinBreakpoint = 'md'
@@ -49,6 +50,7 @@ const Layout = ({ children = [] }: LayoutProps): JSX.Element => {
                 variant={drawerVariant}
                 className={classes.drawer}
                 classes={{ paper: classes.drawerPaper }}
+                endpoints={endpoints}
             />
             <Box mt={2} />
             <main className={classes.content}>

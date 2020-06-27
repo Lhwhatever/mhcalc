@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavDrawer test should render correctly 1`] = `
+<ForwardRef(SwipeableDrawer)
+  onClose={[Function]}
+  onOpen={[Function]}
+  open={true}
+>
+  <Styled(MuiBox)
+    className="makeStyles-drawerHeader-1"
+  >
+    <WithStyles(ForwardRef(IconButton))
+      aria-label="close"
+      onClick={[Function]}
+    >
+      <ChevronLeftIcon />
+    </WithStyles(ForwardRef(IconButton))>
+  </Styled(MuiBox)>
+  <Styled(MuiBox)
+    component="div"
+    overflow="auto"
+  >
+    <WithStyles(ForwardRef(List))
+      aria-label="navigation drawer"
+      component="nav"
+    >
+      <ListLinkItem
+        href="/"
+      >
+        Home
+      </ListLinkItem>
+      <WithStyles(ForwardRef(Divider)) />
+      <DrawerSubList
+        component="div"
+        endpoints={
+          Array [
+            Object {
+              "name": "Valour Rift Simulator",
+              "path": "/vrift",
+            },
+          ]
+        }
+        subheader="Calculators"
+      />
+    </WithStyles(ForwardRef(List))>
+  </Styled(MuiBox)>
+</ForwardRef(SwipeableDrawer)>
+`;
