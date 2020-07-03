@@ -66,4 +66,12 @@ describe('mount ListLinkItem', () => {
         expect(ListItemWrapper.prop('className')).toEqual('foo')
         expect(ListItemWrapper.prop('styles')).toEqual(styles)
     })
+
+    it('should have the active className if and only if active prop is supplied', () => {
+        expect(wrapper.find(ListItem).hasClass(/active/)).toBeFalsy()
+        wrapper.setProps({ active: false })
+        expect(wrapper.find(ListItem).hasClass(/active/)).toBeFalsy()
+        wrapper.setProps({ active: true })
+        expect(wrapper.find(ListItem).hasClass(/active/)).toBeTruthy()
+    })
 })
