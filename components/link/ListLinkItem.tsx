@@ -1,10 +1,13 @@
 import { ListItem, ListItemText, makeStyles } from '@material-ui/core'
+import { grey } from '@material-ui/core/colors'
 import clsx from 'clsx'
 import NextLink from 'next/link'
 import React from 'react'
 
 const useStyles = makeStyles({
-    active: {}
+    active: {
+        backgroundColor: grey[100]
+    }
 })
 
 interface ListLinkItemInternalProps {

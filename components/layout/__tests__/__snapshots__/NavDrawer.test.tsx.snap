@@ -2,8 +2,8 @@
 
 exports[`NavDrawer test should render correctly 1`] = `
 <ForwardRef(SwipeableDrawer)
-  onClose={[Function]}
-  onOpen={[Function]}
+  onClose={[MockFunction]}
+  onOpen={[MockFunction]}
   open={true}
 >
   <Styled(MuiBox)
@@ -11,7 +11,7 @@ exports[`NavDrawer test should render correctly 1`] = `
   >
     <WithStyles(ForwardRef(IconButton))
       aria-label="close"
-      onClick={[Function]}
+      onClick={[MockFunction]}
     >
       <ChevronLeftIcon />
     </WithStyles(ForwardRef(IconButton))>
@@ -24,19 +24,23 @@ exports[`NavDrawer test should render correctly 1`] = `
       aria-label="navigation drawer"
       component="nav"
     >
-      <ListLinkItem
+      <UngroupedEndpoint
         href="/"
       >
         Home
-      </ListLinkItem>
+      </UngroupedEndpoint>
       <WithStyles(ForwardRef(Divider)) />
       <DrawerSubList
         component="div"
         endpoints={
           Array [
             Object {
-              "name": "Valour Rift Simulator",
-              "path": "/vrift",
+              "name": "foo",
+              "path": "/foo",
+            },
+            Object {
+              "name": "bar",
+              "path": "/bar",
             },
           ]
         }

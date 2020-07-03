@@ -3,6 +3,7 @@ import React from 'react'
 import Navbar from './Navbar'
 import NavDrawer from './NavDrawer'
 import endpoints from '../../endpoints'
+import { useRouter } from 'next/dist/client/router'
 
 export const altDrawerWidth = 240
 export const altDrawerMinBreakpoint = 'md'
@@ -20,6 +21,7 @@ interface LayoutProps {
 }
 
 const Layout = ({ children = [] }: LayoutProps): JSX.Element => {
+    const router = useRouter()
     const classes = useStyles()
     const useAltDrawer = useMediaQuery((theme: Theme) => theme.breakpoints.up(altDrawerMinBreakpoint))
     const usePersistentDrawer = useMediaQuery((theme: Theme) => theme.breakpoints.only('sm'))
@@ -51,6 +53,7 @@ const Layout = ({ children = [] }: LayoutProps): JSX.Element => {
                 className={classes.drawer}
                 classes={{ paper: classes.drawerPaper }}
                 endpoints={endpoints}
+                current={router.pathname}
             />
             <Box mt={2} />
             <main className={classes.content}>

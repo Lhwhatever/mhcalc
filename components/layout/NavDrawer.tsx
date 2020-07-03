@@ -11,7 +11,7 @@ import {
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import React from 'react'
 import { Endpoint } from '../../endpoints'
-import ListLinkItem from '../link/ListLinkItem'
+import ListLinkItem, { ListLinkItemProps } from '../link/ListLinkItem'
 import DrawerSubList from './DrawerSubList'
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -25,12 +25,23 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }))
 
-export type NavDrawerProps = SwipeableDrawerProps & { endpoints: Record<string, Endpoint[]> }
+export interface NavDrawerEndpoints {
+    calculators: Endpoint[]
+}
+
+interface NavDrawerExtendedProps {
+    endpoints: NavDrawerEndpoints
+    current?: string
+}
+
+export type NavDrawerProps = SwipeableDrawerProps & NavDrawerExtendedProps
 
 const NavDrawer = (props: NavDrawerProps): JSX.Element => {
-    const { endpoints, ...other } = props
+    const { endpoints, current, ...other } = props
 
     const classes = useStyles()
+
+    const UngroupedEndpoint = (props: ListLinkItemProps) => <ListLinkItem {...props} active={current === props.href} />
 
     return (
         <SwipeableDrawer {...other}>
@@ -41,9 +52,14 @@ const NavDrawer = (props: NavDrawerProps): JSX.Element => {
             </Box>
             <Box component="div" overflow="auto">
                 <List component="nav" aria-label="navigation drawer">
-                    <ListLinkItem href="/">Home</ListLinkItem>
+                    <UngroupedEndpoint href="/">Home</UngroupedEndpoint>
                     <Divider />
-                    <DrawerSubList component="div" subheader="Calculators" endpoints={endpoints.calculators} />
+                    <DrawerSubList
+                        component="div"
+                        subheader="Calculators"
+                        endpoints={endpoints.calculators}
+                        current={current}
+                    />
                 </List>
             </Box>
         </SwipeableDrawer>
