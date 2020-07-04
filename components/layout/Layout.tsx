@@ -3,7 +3,7 @@ import React from 'react'
 import Navbar from './Navbar'
 import NavDrawer from './NavDrawer'
 import endpoints from '../../endpoints'
-import { useRouter } from 'next/dist/client/router'
+import { useRouter } from 'next/router'
 
 export const altDrawerWidth = 240
 export const altDrawerMinBreakpoint = 'md'
