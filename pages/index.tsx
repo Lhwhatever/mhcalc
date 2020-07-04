@@ -1,13 +1,25 @@
 import { Box, Typography } from '@material-ui/core'
 import { styled } from '@material-ui/core/styles'
 import React from 'react'
-import { ButtonLink } from '../components/AsNextLink'
 import Layout from '../components/layout/Layout'
+import { ButtonLink } from '../components/link/asNextLink'
 import endpoints from '../endpoints'
 
-const MenuButton = styled(ButtonLink)({
+export const MenuButton = styled(ButtonLink)({
     width: '100%'
 })
+
+export const IndexButtons = (): JSX.Element => {
+    return (
+        <Box display="flex" flexDirection="column" alignItems="center">
+            {endpoints.calculators.map((e) => (
+                <MenuButton href={e.path} variant="outlined" key={e.path} width="100%">
+                    {e.name}
+                </MenuButton>
+            ))}
+        </Box>
+    )
+}
 
 export default function IndexPage(): JSX.Element {
     return (
@@ -20,13 +32,7 @@ export default function IndexPage(): JSX.Element {
                 MouseHunt is a trademark of HitGrab Inc. I do not claim ownership of MouseHunt, its associated
                 trademarks or its art assets.
             </Typography>
-            <Box display="flex" flexDirection="column" alignItems="center">
-                {endpoints.calculators.map((e) => (
-                    <MenuButton href={e.path} variant="outlined" key={e.path} width="100%">
-                        {e.name}
-                    </MenuButton>
-                ))}
-            </Box>
+            <IndexButtons />
         </Layout>
     )
 }

@@ -1,32 +1,45 @@
 {
-  "name": "mhcalc",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
-  "dependencies": {
-    "@material-ui/core": "^4.10.2",
-    "@material-ui/icons": "^4.9.1",
-    "@material-ui/styles": "^4.10.0",
-    "next": "9.4.4",
-    "react": "16.13.1",
-    "react-dom": "16.13.1",
-    "react-redux": "^7.2.0",
-    "redux": "^4.0.5"
-  },
-  "devDependencies": {
-    "@types/node": "^14.0.13",
-    "@types/react": "^16.9.36",
-    "@typescript-eslint/eslint-plugin": "^3.3.0",
-    "@typescript-eslint/parser": "^3.3.0",
-    "eslint": "^7.2.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "eslint-plugin-react": "^7.20.0",
-    "prettier": "^2.0.5",
-    "typescript": "^3.9.5"
-  }
+    "name": "mhcalc",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start"
+    },
+    "dependencies": {
+        "@material-ui/core": "^4.10.2",
+        "@material-ui/icons": "^4.9.1",
+        "@material-ui/styles": "^4.10.0",
+        "next": "9.4.4",
+        "react": "16.13.1",
+        "react-dom": "16.13.1",
+        "react-redux": "^7.2.0",
+        "redux": "^4.0.5"
+    },
+    "devDependencies": {
+        "@testing-library/jest-dom": "^5.10.1",
+        "@types/enzyme": "^3.10.5",
+        "@types/enzyme-adapter-react-16": "^1.0.6",
+        "@types/jest": "^26.0.2",
+        "@types/node": "^14.0.13",
+        "@types/react": "^16.9.36",
+        "@typescript-eslint/eslint-plugin": "^3.3.0",
+        "@typescript-eslint/parser": "^3.3.0",
+        "enzyme": "^3.11.0",
+        "enzyme-adapter-react-16": "^1.15.2",
+        "enzyme-to-json": "^3.5.0",
+        "eslint": "^7.2.0",
+        "eslint-config-prettier": "^6.11.0",
+        "eslint-plugin-jest-dom": "^3.0.1",
+        "eslint-plugin-prettier": "^3.1.4",
+        "eslint-plugin-react": "^7.20.0",
+        "eslint-plugin-react-hooks": "^4.0.4",
+        "jest": "^26.1.0",
+        "prettier": "^2.0.5",
+        "ts-jest": "^26.1.1",
+        "typescript": "^3.9.5"
+    }
 }

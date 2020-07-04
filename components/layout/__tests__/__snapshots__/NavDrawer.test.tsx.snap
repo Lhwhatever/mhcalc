@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NavDrawer test should render correctly 1`] = `
+<ForwardRef(SwipeableDrawer)
+  onClose={[MockFunction]}
+  onOpen={[MockFunction]}
+  open={true}
+>
+  <Styled(MuiBox)
+    className="makeStyles-drawerHeader-1"
+  >
+    <WithStyles(ForwardRef(IconButton))
+      aria-label="close"
+      onClick={[MockFunction]}
+    >
+      <ChevronLeftIcon />
+    </WithStyles(ForwardRef(IconButton))>
+  </Styled(MuiBox)>
+  <Styled(MuiBox)
+    component="div"
+    overflow="auto"
+  >
+    <WithStyles(ForwardRef(List))
+      aria-label="navigation drawer"
+      component="nav"
+    >
+      <UngroupedEndpoint
+        href="/"
+      >
+        Home
+      </UngroupedEndpoint>
+      <WithStyles(ForwardRef(Divider)) />
+      <DrawerSubList
+        component="div"
+        endpoints={
+          Array [
+            Object {
+              "name": "foo",
+              "path": "/foo",
+            },
+            Object {
+              "name": "bar",
+              "path": "/bar",
+            },
+          ]
+        }
+        subheader="Calculators"
+      />
+    </WithStyles(ForwardRef(List))>
+  </Styled(MuiBox)>
+</ForwardRef(SwipeableDrawer)>
+`;

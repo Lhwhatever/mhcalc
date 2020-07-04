@@ -1,0 +1,196 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`/ tests should render correctly 1`] = `
+<Layout>
+  <WithStyles(ForwardRef(Typography))
+    variant="h3"
+  >
+    Welcome!
+  </WithStyles(ForwardRef(Typography))>
+  <WithStyles(ForwardRef(Typography))
+    paragraph={true}
+    variant="body1"
+  >
+    This site hosts several different calculators for MouseHunt to aid in optimizing your hunting.
+  </WithStyles(ForwardRef(Typography))>
+  <WithStyles(ForwardRef(Typography))
+    paragraph={true}
+    variant="body2"
+  >
+    MouseHunt is a trademark of HitGrab Inc. I do not claim ownership of MouseHunt, its associated trademarks or its art assets.
+  </WithStyles(ForwardRef(Typography))>
+  <Component />
+</Layout>
+`;
+
+exports[`mounted IndexButtons should render correctly 1`] = `
+<Component>
+  <Styled(MuiBox)
+    alignItems="center"
+    display="flex"
+    flexDirection="column"
+  >
+    <div
+      className="MuiBox-root MuiBox-root-3"
+    >
+      <Styled(AsNextLink(WithStyles(ForwardRef(Button))))
+        href="/vrift"
+        key="/vrift"
+        variant="outlined"
+        width="100%"
+      >
+        <AsNextLink(WithStyles(ForwardRef(Button)))
+          className="AsNextLink(WithStyles(ForwardRef(Button)))-root-4"
+          href="/vrift"
+          variant="outlined"
+          width="100%"
+        >
+          <Link
+            href="/vrift"
+            passHref={true}
+          >
+            <WithStyles(ForwardRef(Button))
+              className="AsNextLink(WithStyles(ForwardRef(Button)))-root-4"
+              href="/vrift"
+              onClick={[Function]}
+              onMouseEnter={[Function]}
+              variant="outlined"
+              width="100%"
+            >
+              <ForwardRef(Button)
+                className="AsNextLink(WithStyles(ForwardRef(Button)))-root-4"
+                classes={
+                  Object {
+                    "colorInherit": "MuiButton-colorInherit",
+                    "contained": "MuiButton-contained",
+                    "containedPrimary": "MuiButton-containedPrimary",
+                    "containedSecondary": "MuiButton-containedSecondary",
+                    "containedSizeLarge": "MuiButton-containedSizeLarge",
+                    "containedSizeSmall": "MuiButton-containedSizeSmall",
+                    "disableElevation": "MuiButton-disableElevation",
+                    "disabled": "Mui-disabled",
+                    "endIcon": "MuiButton-endIcon",
+                    "focusVisible": "Mui-focusVisible",
+                    "fullWidth": "MuiButton-fullWidth",
+                    "iconSizeLarge": "MuiButton-iconSizeLarge",
+                    "iconSizeMedium": "MuiButton-iconSizeMedium",
+                    "iconSizeSmall": "MuiButton-iconSizeSmall",
+                    "label": "MuiButton-label",
+                    "outlined": "MuiButton-outlined",
+                    "outlinedPrimary": "MuiButton-outlinedPrimary",
+                    "outlinedSecondary": "MuiButton-outlinedSecondary",
+                    "outlinedSizeLarge": "MuiButton-outlinedSizeLarge",
+                    "outlinedSizeSmall": "MuiButton-outlinedSizeSmall",
+                    "root": "MuiButton-root",
+                    "sizeLarge": "MuiButton-sizeLarge",
+                    "sizeSmall": "MuiButton-sizeSmall",
+                    "startIcon": "MuiButton-startIcon",
+                    "text": "MuiButton-text",
+                    "textPrimary": "MuiButton-textPrimary",
+                    "textSecondary": "MuiButton-textSecondary",
+                    "textSizeLarge": "MuiButton-textSizeLarge",
+                    "textSizeSmall": "MuiButton-textSizeSmall",
+                  }
+                }
+                href="/vrift"
+                onClick={[Function]}
+                onMouseEnter={[Function]}
+                variant="outlined"
+                width="100%"
+              >
+                <WithStyles(ForwardRef(ButtonBase))
+                  className="MuiButton-root MuiButton-outlined AsNextLink(WithStyles(ForwardRef(Button)))-root-4"
+                  component="button"
+                  disabled={false}
+                  focusRipple={true}
+                  focusVisibleClassName="Mui-focusVisible"
+                  href="/vrift"
+                  onClick={[Function]}
+                  onMouseEnter={[Function]}
+                  type="button"
+                  width="100%"
+                >
+                  <ForwardRef(ButtonBase)
+                    className="MuiButton-root MuiButton-outlined AsNextLink(WithStyles(ForwardRef(Button)))-root-4"
+                    classes={
+                      Object {
+                        "disabled": "Mui-disabled",
+                        "focusVisible": "Mui-focusVisible",
+                        "root": "MuiButtonBase-root",
+                      }
+                    }
+                    component="button"
+                    disabled={false}
+                    focusRipple={true}
+                    focusVisibleClassName="Mui-focusVisible"
+                    href="/vrift"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                    type="button"
+                    width="100%"
+                  >
+                    <a
+                      aria-disabled={false}
+                      className="MuiButtonBase-root MuiButton-root MuiButton-outlined AsNextLink(WithStyles(ForwardRef(Button)))-root-4"
+                      href="/vrift"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onDragLeave={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      onKeyUp={[Function]}
+                      onMouseDown={[Function]}
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                      onMouseUp={[Function]}
+                      onTouchEnd={[Function]}
+                      onTouchMove={[Function]}
+                      onTouchStart={[Function]}
+                      tabIndex={0}
+                      width="100%"
+                    >
+                      <span
+                        className="MuiButton-label"
+                      >
+                        Valour Rift Simulator
+                      </span>
+                      <WithStyles(memo)
+                        center={false}
+                      >
+                        <ForwardRef(TouchRipple)
+                          center={false}
+                          classes={
+                            Object {
+                              "child": "MuiTouchRipple-child",
+                              "childLeaving": "MuiTouchRipple-childLeaving",
+                              "childPulsate": "MuiTouchRipple-childPulsate",
+                              "ripple": "MuiTouchRipple-ripple",
+                              "ripplePulsate": "MuiTouchRipple-ripplePulsate",
+                              "rippleVisible": "MuiTouchRipple-rippleVisible",
+                              "root": "MuiTouchRipple-root",
+                            }
+                          }
+                        >
+                          <span
+                            className="MuiTouchRipple-root"
+                          >
+                            <TransitionGroup
+                              childFactory={[Function]}
+                              component={null}
+                              exit={true}
+                            />
+                          </span>
+                        </ForwardRef(TouchRipple)>
+                      </WithStyles(memo)>
+                    </a>
+                  </ForwardRef(ButtonBase)>
+                </WithStyles(ForwardRef(ButtonBase))>
+              </ForwardRef(Button)>
+            </WithStyles(ForwardRef(Button))>
+          </Link>
+        </AsNextLink(WithStyles(ForwardRef(Button)))>
+      </Styled(AsNextLink(WithStyles(ForwardRef(Button))))>
+    </div>
+  </Styled(MuiBox)>
+</Component>
+`;

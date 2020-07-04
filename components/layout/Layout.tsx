@@ -2,6 +2,8 @@ import { Box, makeStyles, Theme, Toolbar, useMediaQuery } from '@material-ui/cor
 import React from 'react'
 import Navbar from './Navbar'
 import NavDrawer from './NavDrawer'
+import endpoints from '../../endpoints'
+import { useRouter } from 'next/router'
 
 export const altDrawerWidth = 240
 export const altDrawerMinBreakpoint = 'md'
@@ -15,10 +17,11 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 interface LayoutProps {
-    children: React.ReactNode
+    children?: React.ReactNode
 }
 
-const Layout = ({ children }: LayoutProps): JSX.Element => {
+const Layout = ({ children = [] }: LayoutProps): JSX.Element => {
+    const router = useRouter()
     const classes = useStyles()
     const useAltDrawer = useMediaQuery((theme: Theme) => theme.breakpoints.up(altDrawerMinBreakpoint))
     const usePersistentDrawer = useMediaQuery((theme: Theme) => theme.breakpoints.only('sm'))
@@ -49,6 +52,8 @@ const Layout = ({ children }: LayoutProps): JSX.Element => {
                 variant={drawerVariant}
                 className={classes.drawer}
                 classes={{ paper: classes.drawerPaper }}
+                endpoints={endpoints}
+                current={router.pathname}
             />
             <Box mt={2} />
             <main className={classes.content}>

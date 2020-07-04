@@ -20,14 +20,6 @@ function asNextLink<P extends Record<string, unknown>>(Component: React.Componen
     return AsNextLink
 }
 
-export function wrapNextLink(element: JSX.Element | JSX.Element[], href = '#', propsToInject = undefined): JSX.Element {
-    return (
-        <NextLink href={href} passHref {...(propsToInject || {})}>
-            {element}
-        </NextLink>
-    )
-}
-
 export default asNextLink
 
 export const ButtonLink = asNextLink(Button)

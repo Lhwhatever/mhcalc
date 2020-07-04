@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navbar tests should render correctly 1`] = `
+<WithStyles(ForwardRef(AppBar))
+  position="fixed"
+>
+  <WithStyles(ForwardRef(Toolbar))>
+    <WithStyles(ForwardRef(IconButton))
+      aria-label="menu"
+      color="inherit"
+      edge="start"
+      onClick={[MockFunction]}
+    >
+      <MenuIcon />
+    </WithStyles(ForwardRef(IconButton))>
+    <WithStyles(ForwardRef(Typography))
+      variant="h6"
+    >
+      MouseHunt Calculator
+    </WithStyles(ForwardRef(Typography))>
+  </WithStyles(ForwardRef(Toolbar))>
+</WithStyles(ForwardRef(AppBar))>
+`;
+
+exports[`Navbar tests should render correctly 2`] = `
+<WithStyles(ForwardRef(AppBar))
+  position="fixed"
+>
+  <WithStyles(ForwardRef(Toolbar))>
+    <WithStyles(ForwardRef(Typography))
+      variant="h6"
+    >
+      MouseHunt Calculator
+    </WithStyles(ForwardRef(Typography))>
+  </WithStyles(ForwardRef(Toolbar))>
+</WithStyles(ForwardRef(AppBar))>
+`;

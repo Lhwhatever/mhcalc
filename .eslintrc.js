@@ -10,7 +10,8 @@ module.exports = {
         'plugin:@typescript-eslint/eslint-recommended',
         'plugin:@typescript-eslint/recommended',
         'prettier/@typescript-eslint',
-        'plugin:prettier/recommended'
+        'plugin:prettier/recommended',
+        'plugin:jest-dom/recommended'
     ],
     parser: '@typescript-eslint/parser',
     parserOptions: {
@@ -20,11 +21,13 @@ module.exports = {
         ecmaVersion: 11,
         sourceType: 'module'
     },
-    plugins: ['react', '@typescript-eslint'],
+    plugins: ['react', '@typescript-eslint', 'react-hooks'],
     rules: {
         'linebreak-style': ['error', 'unix'],
         quotes: ['error', 'single'],
         semi: ['error', 'never'],
-        '@typescript-eslint/no-non-null-assertion': 'off'
+        '@typescript-eslint/no-non-null-assertion': 'off',
+        'react-hooks/rules-of-hooks': 'error',
+        'react-hooks/exhaustive-deps': 'warn'
     }
 }

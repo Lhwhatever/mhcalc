@@ -3,18 +3,16 @@ import {
     Divider,
     IconButton,
     List,
-    ListItem,
-    ListSubheader,
     makeStyles,
     SwipeableDrawer,
     SwipeableDrawerProps,
     Theme
 } from '@material-ui/core'
-import ListItemText from '@material-ui/core/ListItemText'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import React from 'react'
-import endpoints from '../../endpoints'
-import { wrapNextLink } from '../AsNextLink'
+import { Endpoint } from '../../endpoints'
+import ListLinkItem, { ListLinkItemProps } from '../link/ListLinkItem'
+import DrawerSubList from './DrawerSubList'
 
 const useStyles = makeStyles((theme: Theme) => ({
     drawerHeader: {
@@ -27,13 +25,26 @@ const useStyles = makeStyles((theme: Theme) => ({
     }
 }))
 
-export type NavDrawerProps = SwipeableDrawerProps
+export interface NavDrawerEndpoints {
+    calculators: Endpoint[]
+}
 
-const NavDrawer = (props: SwipeableDrawerProps): JSX.Element => {
+interface NavDrawerExtendedProps {
+    endpoints: NavDrawerEndpoints
+    current?: string
+}
+
+export type NavDrawerProps = SwipeableDrawerProps & NavDrawerExtendedProps
+
+const NavDrawer = (props: NavDrawerProps): JSX.Element => {
+    const { endpoints, current, ...other } = props
+
     const classes = useStyles()
 
+    const UngroupedEndpoint = (props: ListLinkItemProps) => <ListLinkItem {...props} active={current === props.href} />
+
     return (
-        <SwipeableDrawer {...props}>
+        <SwipeableDrawer {...other}>
             <Box className={classes.drawerHeader}>
                 <IconButton onClick={props.onClose} aria-label="close">
                     <ChevronLeftIcon />
@@ -41,33 +52,14 @@ const NavDrawer = (props: SwipeableDrawerProps): JSX.Element => {
             </Box>
             <Box component="div" overflow="auto">
                 <List component="nav" aria-label="navigation drawer">
-                    {wrapNextLink(
-                        <ListItem button>
-                            <ListItemText>Home</ListItemText>
-                        </ListItem>,
-                        '/'
-                    )}
+                    <UngroupedEndpoint href="/">Home</UngroupedEndpoint>
                     <Divider />
-                    <List
+                    <DrawerSubList
                         component="div"
-                        aria-labelledby="calculator-list-header"
-                        subheader={
-                            <ListSubheader component="div" id="calculator-list-header">
-                                Calculators
-                            </ListSubheader>
-                        }
-                    >
-                        {endpoints.calculators.map((e) =>
-                            wrapNextLink(
-                                <ListItem button>
-                                    <ListItemText>{e.name}</ListItemText>
-                                </ListItem>,
-                                e.path,
-                                { key: e.name }
-                            )
-                        )}
-                    </List>
-                    <Divider />
+                        subheader="Calculators"
+                        endpoints={endpoints.calculators}
+                        current={current}
+                    />
                 </List>
             </Box>
         </SwipeableDrawer>
