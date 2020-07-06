@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NumericInput test should match snapshot 1`] = `
+<WithStyles(ForwardRef(TextField))
+  inputProps={
+    Object {
+      "max": undefined,
+      "min": undefined,
+    }
+  }
+  onBlur={[Function]}
+  onChange={[Function]}
+  type="number"
+/>
+`;
