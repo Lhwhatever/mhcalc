@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HuntsLeftInput test should match snapshot 1`] = `
+<WithStyles(ForwardRef(TextField))
+  label="Hunts Left"
+  type="number"
+  variant="outlined"
+/>
+`;
