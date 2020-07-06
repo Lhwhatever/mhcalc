@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StepsInput test should match snapshot 1`] = `
+<WithStyles(ForwardRef(TextField))
+  label="Steps"
+  type="number"
+  variant="outlined"
+/>
+`;
