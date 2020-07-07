@@ -4,6 +4,7 @@ exports[`HuntsLeftInput test should match snapshot 1`] = `
 <IntegerInput
   label="Hunts Left"
   min={1}
+  onChange={[MockFunction]}
   variant="outlined"
 />
 `;

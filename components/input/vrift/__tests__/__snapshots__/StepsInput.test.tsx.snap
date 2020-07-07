@@ -1,9 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StepsInput test should match snapshot 1`] = `
-<WithStyles(ForwardRef(TextField))
+<IntegerInput
   label="Steps"
-  type="number"
+  min={0}
+  onChange={[MockFunction]}
   variant="outlined"
 />
 `;

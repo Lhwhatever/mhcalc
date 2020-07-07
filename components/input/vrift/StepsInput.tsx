@@ -1,15 +1,10 @@
-import { TextField } from '@material-ui/core'
 import React from 'react'
-import { InputEvent } from '../types'
+import IntegerInput, { IntegerInputProps } from '../IntegerInput'
 
-export interface StepsInputProps {
-    fullWidth?: boolean
-    value?: number
-    onChange?: (event: InputEvent) => void
-}
+export type StepsInputProps = Omit<IntegerInputProps, 'min' | 'max'>
 
 const StepsInput = (props: StepsInputProps): JSX.Element => {
-    return <TextField label="Steps" type="number" variant="outlined" {...props} />
+    return <IntegerInput label="Steps" variant="outlined" min={0} {...props} />
 }
 
 export default StepsInput
