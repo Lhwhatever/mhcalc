@@ -1,13 +1,13 @@
 import { MenuItem, TextField } from '@material-ui/core'
 import React from 'react'
-import { InputEvent } from '../types'
+import { InputChangeEvent } from '../types'
 
 export type InitialSync = 40 | 50 | 60 | 70 | 80 | 90 | 100
 
 export interface SyncInputProps {
     fullWidth?: boolean
     value?: InitialSync
-    onChange?: (event: InputEvent) => void
+    onChange?: (event: InputChangeEvent) => void
 }
 
 const InitialSyncInput = (props: SyncInputProps): JSX.Element => {
