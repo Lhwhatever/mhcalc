@@ -11,5 +11,7 @@ exports[`NumericInput test should match snapshot 1`] = `
   onBlur={[Function]}
   onChange={[Function]}
   type="number"
+  value=""
+  variant="outlined"
 />
 `;

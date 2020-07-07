@@ -1,15 +1,10 @@
-import { TextField } from '@material-ui/core'
 import React from 'react'
-import { InputEvent } from '../types'
+import IntegerInput, { IntegerInputProps } from '../IntegerInput'
 
-export interface HuntsLeftInputProps {
-    fullWidth?: boolean
-    value?: number
-    onChange?: (event: InputEvent) => void
-}
+export type HuntsLeftInputProps = Omit<IntegerInputProps, 'min' | 'max'>
 
 const HuntsLeftInput = (props: HuntsLeftInputProps): JSX.Element => {
-    return <TextField label="Hunts Left" type="number" variant="outlined" {...props} />
+    return <IntegerInput label="Hunts Left" variant="outlined" min={1} {...props} />
 }
 
 export default HuntsLeftInput
