@@ -1,4 +1,4 @@
-import { renderNumber, asInteger } from '../str'
+import { renderNumber, asInteger, textToKebabCase } from '../str'
 
 describe('str test', () => {
     test('renderNumber should work', () => {
@@ -16,5 +16,11 @@ describe('str test', () => {
 
         expect(asInteger('10', 16)).toBe(0x10)
         expect(asInteger('ff', 16)).toBe(0xff)
+    })
+
+    test('textToKebabCase should work', () => {
+        expect(textToKebabCase('word')).toBe('word')
+        expect(textToKebabCase('Foo')).toBe('foo')
+        expect(textToKebabCase('one two three')).toBe('one-two-three')
     })
 })
