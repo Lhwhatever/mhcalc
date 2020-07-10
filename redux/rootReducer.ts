@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import vriftReducer from './ducks/vrift'
+import vriftReducer from './ducks/vrift/vrift'
 
 const rootReducer = combineReducers({
     vrift: vriftReducer
