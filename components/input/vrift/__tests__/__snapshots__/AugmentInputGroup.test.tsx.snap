@@ -13,30 +13,35 @@ exports[`AugmentInputGroup test should match snapshot 1`] = `
     <AugmentSwitch
       checked={false}
       iconUri="https://www.mousehuntgame.com/images/ui/hud/rift_valour/augments/highway_robbery.png"
+      key="sigilHunter"
       label="Sigil Hunter"
       onChange={[Function]}
     />
     <AugmentSwitch
       checked={false}
       iconUri="https://www.mousehuntgame.com/images/ui/hud/rift_valour/augments/champion_pillage.png"
+      key="secretResearch"
       label="Secret Research"
       onChange={[Function]}
     />
     <AugmentSwitch
       checked={false}
       iconUri="https://www.mousehuntgame.com/images/ui/hud/rift_valour/augments/secret_passage.png"
+      key="superSiphon"
       label="Super Siphon"
       onChange={[Function]}
     />
     <AugmentSwitch
       checked={false}
       iconUri="https://www.mousehuntgame.com/images/ui/hud/rift_valour/augments/tower_ultimatum.png"
+      key="ultimateUmbra"
       label="Ultimate Umbra"
       onChange={[Function]}
     />
     <AugmentSwitch
       checked={false}
       iconUri="https://www.mousehuntgame.com/images/ui/hud/rift_valour/augments/string_stepping.png"
+      key="stringStepping"
       label="String Stepping"
       onChange={[Function]}
     />

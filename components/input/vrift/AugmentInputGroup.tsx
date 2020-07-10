@@ -4,6 +4,7 @@ import AugmentSwitch from './AugmentSwitch'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../../redux/rootReducer'
 import { Augments, updateAugment } from '../../../redux/ducks/vrift/simInput'
+import { camelCaseToTitleCase } from '../../../utils/str'
 
 const useStyles = makeStyles((theme) => ({
     switchboxRoot: {
@@ -13,6 +14,19 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center'
     }
 }))
+
+interface AugmentEntry {
+    key: keyof Augments
+    icon: string
+}
+
+const augmentSwitches: AugmentEntry[] = [
+    { key: 'sigilHunter', icon: 'highway_robbery' },
+    { key: 'secretResearch', icon: 'champion_pillage' },
+    { key: 'superSiphon', icon: 'secret_passage' },
+    { key: 'ultimateUmbra', icon: 'tower_ultimatum' },
+    { key: 'stringStepping', icon: 'string_stepping' }
+]
 
 const AugmentInputGroup = (): JSX.Element => {
     const classes = useStyles()
@@ -28,36 +42,15 @@ const AugmentInputGroup = (): JSX.Element => {
         <Box>
             <Typography variant="h4">Augments</Typography>
             <div className={classes.switchboxRoot}>
-                <AugmentSwitch
-                    label="Sigil Hunter"
-                    iconUri="https://www.mousehuntgame.com/images/ui/hud/rift_valour/augments/highway_robbery.png"
-                    checked={enabledAugments.sigilHunter ?? false}
-                    onChange={createAugmentStateHandler('sigilHunter')}
-                />
-                <AugmentSwitch
-                    label="Secret Research"
-                    iconUri="https://www.mousehuntgame.com/images/ui/hud/rift_valour/augments/champion_pillage.png"
-                    checked={enabledAugments.secretResearch ?? false}
-                    onChange={createAugmentStateHandler('secretResearch')}
-                />
-                <AugmentSwitch
-                    label="Super Siphon"
-                    iconUri="https://www.mousehuntgame.com/images/ui/hud/rift_valour/augments/secret_passage.png"
-                    checked={enabledAugments.superSiphon ?? false}
-                    onChange={createAugmentStateHandler('superSiphon')}
-                />
-                <AugmentSwitch
-                    label="Ultimate Umbra"
-                    iconUri="https://www.mousehuntgame.com/images/ui/hud/rift_valour/augments/tower_ultimatum.png"
-                    checked={enabledAugments.ultimateUmbra ?? false}
-                    onChange={createAugmentStateHandler('ultimateUmbra')}
-                />
-                <AugmentSwitch
-                    label="String Stepping"
-                    iconUri="https://www.mousehuntgame.com/images/ui/hud/rift_valour/augments/string_stepping.png"
-                    checked={enabledAugments.stringStepping ?? false}
-                    onChange={createAugmentStateHandler('stringStepping')}
-                />
+                {augmentSwitches.map((augment: AugmentEntry) => (
+                    <AugmentSwitch
+                        key={augment.key}
+                        label={camelCaseToTitleCase(augment.key)}
+                        iconUri={`https://www.mousehuntgame.com/images/ui/hud/rift_valour/augments/${augment.icon}.png`}
+                        checked={enabledAugments[augment.key] ?? false}
+                        onChange={createAugmentStateHandler(augment.key)}
+                    />
+                ))}
             </div>
         </Box>
     )

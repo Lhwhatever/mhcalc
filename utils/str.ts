@@ -27,3 +27,15 @@ export function asInteger(str: string, radix = 10): number | undefined {
 export function textToKebabCase(text: string): string {
     return text.toLowerCase().replace(/ /g, '-')
 }
+
+/**
+ * Converts a string in camelCase or PascalCase to text in Title Case.
+ * @param text The string to convert.
+ * @returns The text in Title Case
+ */
+export function camelCaseToTitleCase(text: string): string {
+    return text.replace(
+        /[A-Z]|^[a-z]/g,
+        (match: string, offset: number) => (offset > 0 ? ' ' : '') + match.toUpperCase()
+    )
+}

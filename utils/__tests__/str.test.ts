@@ -1,4 +1,4 @@
-import { renderNumber, asInteger, textToKebabCase } from '../str'
+import { renderNumber, asInteger, textToKebabCase, camelCaseToTitleCase } from '../str'
 
 describe('str test', () => {
     test('renderNumber should work', () => {
@@ -22,5 +22,10 @@ describe('str test', () => {
         expect(textToKebabCase('word')).toBe('word')
         expect(textToKebabCase('Foo')).toBe('foo')
         expect(textToKebabCase('one two three')).toBe('one-two-three')
+    })
+
+    test('camelCaseToTitleCase should work', () => {
+        expect(camelCaseToTitleCase('fooBar')).toBe('Foo Bar')
+        expect(camelCaseToTitleCase('oneTwoThree')).toBe('One Two Three')
     })
 })
