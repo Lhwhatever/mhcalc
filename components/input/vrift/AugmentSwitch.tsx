@@ -1,5 +1,5 @@
+import { Avatar, Checkbox, makeStyles, Typography } from '@material-ui/core'
 import React from 'react'
-import { Checkbox, Box, Typography, Avatar, makeStyles } from '@material-ui/core'
 import { textToKebabCase } from '../../../utils/str'
 import { InputChangeEvent } from '../types'
 
