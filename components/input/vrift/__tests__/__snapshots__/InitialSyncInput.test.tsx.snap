@@ -2,7 +2,6 @@
 
 exports[`SyncInput test should match snapshot 1`] = `
 <WithStyles(ForwardRef(TextField))
-  defaultValue={100}
   label="Sync"
   select={true}
   variant="outlined"

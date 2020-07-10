@@ -1,11 +1,8 @@
-import React from 'react'
-import Layout from '../../components/layout/Layout'
-import CurrentProgressInputGroup, {
-    CurrentProgressInputGroupProps
-} from '../../components/input/vrift/CurrentProgressInputGroup'
-import { InitialSync } from '../../components/input/vrift/InitialSyncInput'
-import AugmentInputGroup from '../../components/input/vrift/AugmentInputGroup'
 import { makeStyles } from '@material-ui/core'
+import React from 'react'
+import AugmentInputGroup from '../../components/input/vrift/AugmentInputGroup'
+import CurrentProgressInputGroup from '../../components/input/vrift/CurrentProgressInputGroup'
+import Layout from '../../components/layout/Layout'
 
 const useStyles = makeStyles((theme) => ({
     inputRoot: {
@@ -24,23 +21,10 @@ const useStyles = makeStyles((theme) => ({
 export default function ValourRiftSimPage(): JSX.Element {
     const classes = useStyles()
 
-    const [initialSync, setInitialSync] = React.useState<InitialSync>(100)
-    const [huntsLeft, setHuntsLeft] = React.useState<number | undefined>(initialSync)
-    const [steps, setSteps] = React.useState<number | undefined>(0)
-
-    const currentProgressInputGrpProps: CurrentProgressInputGroupProps = {
-        initialSync,
-        onInitialSyncChange: setInitialSync,
-        huntsLeft,
-        onHuntsLeftChange: setHuntsLeft,
-        steps,
-        onStepsChange: setSteps
-    }
-
     return (
         <Layout>
             <div className={classes.inputRoot}>
-                <CurrentProgressInputGroup {...currentProgressInputGrpProps} />
+                <CurrentProgressInputGroup />
                 <AugmentInputGroup />
             </div>
         </Layout>

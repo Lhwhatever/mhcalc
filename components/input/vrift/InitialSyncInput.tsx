@@ -1,18 +1,13 @@
-import { MenuItem, TextField } from '@material-ui/core'
+import { MenuItem, TextField, TextFieldProps } from '@material-ui/core'
 import React from 'react'
-import { InputChangeEvent } from '../types'
 
 export type InitialSync = 40 | 50 | 60 | 70 | 80 | 90 | 100
 
-export interface SyncInputProps {
-    fullWidth?: boolean
-    value?: InitialSync
-    onChange?: (event: InputChangeEvent) => void
-}
+export type SyncInputProps = Omit<TextFieldProps, 'defaultValue'>
 
 const InitialSyncInput = (props: SyncInputProps): JSX.Element => {
     return (
-        <TextField select label="Sync" variant="outlined" defaultValue={100} {...props}>
+        <TextField select label="Sync" variant="outlined" {...props}>
             {Array(7)
                 .fill(0)
                 .map((_, i) => {

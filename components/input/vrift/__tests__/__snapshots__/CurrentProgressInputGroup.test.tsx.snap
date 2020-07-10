@@ -43,7 +43,7 @@ exports[`CurrentProgressInputGroup test should match snapshot 1`] = `
     >
       <HuntsLeftInput
         fullWidth={true}
-        onChange={[MockFunction]}
+        onChange={[Function]}
         value={100}
       />
     </div>
@@ -52,7 +52,7 @@ exports[`CurrentProgressInputGroup test should match snapshot 1`] = `
     >
       <StepsInput
         fullWidth={true}
-        onChange={[MockFunction]}
+        onChange={[Function]}
         value={0}
       />
     </div>

@@ -5,6 +5,9 @@ import { InputChangeEvent } from '../types'
 import HuntsLeftInput from './HuntsLeftInput'
 import InitialSyncInput, { InitialSync } from './InitialSyncInput'
 import StepsInput from './StepsInput'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from '../../../redux/rootReducer'
+import { updateInitialSync, updateHuntsLeft, updateSteps } from '../../../redux/ducks/vrift/simInput'
 
 const useStyles = makeStyles((theme) => ({
     inputGrid: {
@@ -32,27 +35,27 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-export interface CurrentProgressInputGroupProps {
-    initialSync: InitialSync
-    onInitialSyncChange: (newInitialSync: InitialSync) => void
-    huntsLeft: number | undefined
-    onHuntsLeftChange: (newHuntsLeft: number | undefined) => void
-    steps: number | undefined
-    onStepsChange: (newSteps: number | undefined) => void
-}
-
-const CurrentProgressInputGroup = (props: CurrentProgressInputGroupProps): JSX.Element => {
+const CurrentProgressInputGroup = (): JSX.Element => {
     const classes = useStyles()
 
-    const { initialSync, onInitialSyncChange, huntsLeft, onHuntsLeftChange, steps, onStepsChange } = props
+    const { initialSync, huntsLeft, steps } = useSelector((state: RootState) => state.vrift.simInput)
+    const dispatch = useDispatch()
 
     const handleInitialSyncChange = (event: InputChangeEvent) => {
-        onInitialSyncChange(parseInt(event.target.value) as InitialSync)
+        dispatch(updateInitialSync(parseInt(event.target.value) as InitialSync))
+    }
+
+    const handleHuntsLeftChange = (huntsLeft: number | undefined) => {
+        dispatch(updateHuntsLeft(huntsLeft))
+    }
+
+    const handleStepsChange = (steps: number | undefined) => {
+        dispatch(updateSteps(steps))
     }
 
     const handleResetToStart = () => {
-        onHuntsLeftChange(initialSync)
-        onStepsChange(0)
+        handleHuntsLeftChange(initialSync)
+        handleStepsChange(0)
     }
 
     return (
@@ -75,10 +78,10 @@ const CurrentProgressInputGroup = (props: CurrentProgressInputGroupProps): JSX.E
                     </Tooltip>
                 </div>
                 <div className={classes.inputField}>
-                    <HuntsLeftInput fullWidth value={huntsLeft} onChange={onHuntsLeftChange} />
+                    <HuntsLeftInput fullWidth value={huntsLeft} onChange={handleHuntsLeftChange} />
                 </div>
                 <div className={classes.inputField}>
-                    <StepsInput fullWidth value={steps} onChange={onStepsChange} />
+                    <StepsInput fullWidth value={steps} onChange={handleStepsChange} />
                 </div>
             </Box>
             <Box mt={2} display="flex" flexDirection="row-reverse">

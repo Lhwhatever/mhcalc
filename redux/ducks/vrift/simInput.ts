@@ -35,10 +35,10 @@ const simInputsSlice = createSlice({
         updateInitialSync(state, action: PayloadAction<InitialSync>) {
             state.initialSync = action.payload
         },
-        updateHuntsLeft(state, action: PayloadAction<number>) {
+        updateHuntsLeft(state, action: PayloadAction<number | undefined>) {
             state.huntsLeft = action.payload
         },
-        updateSteps(state, action: PayloadAction<number>) {
+        updateSteps(state, action: PayloadAction<number | undefined>) {
             state.steps = action.payload
         },
         updateAugment(state, action: PayloadAction<UpdateAugmentActionPayload>) {
