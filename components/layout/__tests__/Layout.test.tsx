@@ -1,11 +1,11 @@
-import { ThemeProvider, IconButton } from '@material-ui/core'
+import { IconButton, ThemeProvider } from '@material-ui/core'
 import { createMount } from '@material-ui/core/test-utils'
-import React, { useCallback } from 'react'
+import { ReactWrapper } from 'enzyme'
+import React, { useCallback, SyntheticEvent } from 'react'
 import theme from '../../../theme'
-import Layout from '../Layout'
+import Layout, { LayoutProps } from '../Layout'
 import Navbar from '../Navbar'
 import NavDrawer from '../NavDrawer'
-import { act } from 'react-dom/test-utils'
 
 jest.mock('next/router', () => ({
     useRouter() {
@@ -14,8 +14,8 @@ jest.mock('next/router', () => ({
 }))
 
 describe('Layout test', () => {
-    let mount
-    let wrapper
+    let mount: ReturnType<typeof createMount>
+    let wrapper: ReactWrapper<LayoutProps>
 
     beforeAll(() => {
         mount = createMount()
@@ -59,21 +59,21 @@ describe('Layout test', () => {
 
     it('should open the drawer when clicked', () => {
         expect(wrapper.find(NavDrawer).prop('open')).toBeFalsy()
-        wrapper.find(Navbar).find(IconButton).invoke('onClick')()
+        wrapper.find(Navbar).find(IconButton).invoke('onClick')!({} as React.MouseEvent<HTMLButtonElement>)
         expect(wrapper.find(NavDrawer).prop('open')).toBeTruthy()
     })
 
     it('should not open/close when a Tab or Shift keydown event is given', () => {
         expect(wrapper.find(NavDrawer).prop('open')).toBeFalsy()
 
-        wrapper.find(NavDrawer).invoke('onOpen')({ type: 'keydown', key: 'Tab' })
+        wrapper.find(NavDrawer).invoke('onOpen')({ type: 'keydown', key: 'Tab' } as React.KeyboardEvent<unknown>)
         expect(wrapper.find(NavDrawer).prop('open')).toBeFalsy()
-        wrapper.find(NavDrawer).invoke('onOpen')({ type: 'keydown', key: 'Shift' })
+        wrapper.find(NavDrawer).invoke('onOpen')({ type: 'keydown', key: 'Shift' } as React.KeyboardEvent<unknown>)
         expect(wrapper.find(NavDrawer).prop('open')).toBeFalsy()
 
-        wrapper.find(NavDrawer).invoke('onClose')({ type: 'keydown', key: 'Tab' })
+        wrapper.find(NavDrawer).invoke('onClose')({ type: 'keydown', key: 'Tab' } as React.KeyboardEvent<unknown>)
         expect(wrapper.find(NavDrawer).prop('open')).toBeFalsy()
-        wrapper.find(NavDrawer).invoke('onClose')({ type: 'keydown', key: 'Shift' })
+        wrapper.find(NavDrawer).invoke('onClose')({ type: 'keydown', key: 'Shift' } as React.KeyboardEvent<unknown>)
         expect(wrapper.find(NavDrawer).prop('open')).toBeFalsy()
     })
 })

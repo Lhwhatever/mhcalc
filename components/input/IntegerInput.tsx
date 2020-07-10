@@ -15,7 +15,7 @@ interface BaseNumericInputProps {
 export type IntegerInputProps = BaseNumericInputProps & Pick<TextFieldProps, 'fullWidth' | 'label'>
 
 const IntegerInput = (props: IntegerInputProps): JSX.Element => {
-    const { onChange, min, max, value, variant, ...other } = props
+    const { onChange, min = -Infinity, max = +Infinity, value, variant, ...other } = props
 
     const handleChange = (event: InputChangeEvent) => {
         if (event.target.value === '') onChange(undefined)

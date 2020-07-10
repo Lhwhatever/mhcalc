@@ -54,12 +54,7 @@ const NavDrawer = (props: NavDrawerProps): JSX.Element => {
                 <List component="nav" aria-label="navigation drawer">
                     <UngroupedEndpoint href="/">Home</UngroupedEndpoint>
                     <Divider />
-                    <DrawerSubList
-                        component="div"
-                        subheader="Calculators"
-                        endpoints={endpoints.calculators}
-                        current={current}
-                    />
+                    <DrawerSubList subheader="Calculators" endpoints={endpoints.calculators} current={current} />
                 </List>
             </Box>
         </SwipeableDrawer>

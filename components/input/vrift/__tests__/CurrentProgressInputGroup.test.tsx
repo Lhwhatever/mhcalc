@@ -6,10 +6,12 @@ import HuntsLeftInput from '../HuntsLeftInput'
 import InitialSyncInput from '../InitialSyncInput'
 import StepsInput from '../StepsInput'
 import CurrentProgressInputGroup, { CurrentProgressInputGroupProps } from '../CurrentProgressInputGroup'
+import { ShallowWrapper, ReactWrapper } from 'enzyme'
+import { InputChangeEvent, InputFocusEvent } from '../../types'
 
 describe('CurrentProgressInputGroup test', () => {
-    let shallow
-    let wrapper
+    let shallow: ReturnType<typeof createShallow>
+    let wrapper: ShallowWrapper<CurrentProgressInputGroupProps>
 
     beforeAll(() => {
         shallow = createShallow()
@@ -56,8 +58,8 @@ describe('CurrentProgressInputGroup test', () => {
 
 describe('CurrentProgressInputGroup integration test', () => {
     let props: CurrentProgressInputGroupProps
-    let mount
-    let wrapper
+    let mount: ReturnType<typeof createMount>
+    let wrapper: ReactWrapper<CurrentProgressInputGroupProps>
 
     beforeAll(() => {
         mount = createMount()
@@ -76,17 +78,20 @@ describe('CurrentProgressInputGroup integration test', () => {
     })
 
     it('should handle input from InitialSyncInput', () => {
-        wrapper.find(InitialSyncInput).invoke('onChange')({ type: 'input', target: { value: '70' } })
+        wrapper.find(InitialSyncInput).invoke('onChange')!({
+            type: 'input',
+            target: { value: '70' }
+        } as InputChangeEvent)
         expect(props.onInitialSyncChange).toBeCalledTimes(1)
         expect(props.onInitialSyncChange).lastCalledWith(70)
     })
 
     it('should only allow empty input or input of natural numbers in HuntsLeftInput', () => {
         const invokeOnChange = (newHuntsLeft: string) =>
-            wrapper.find(HuntsLeftInput).find(TextField).invoke('onChange')({
+            wrapper.find(HuntsLeftInput).find(TextField).invoke('onChange')!({
                 type: 'input',
                 target: { value: newHuntsLeft }
-            })
+            } as InputChangeEvent)
 
         invokeOnChange('10a')
         expect(props.onHuntsLeftChange).not.toBeCalled()
@@ -103,7 +108,7 @@ describe('CurrentProgressInputGroup integration test', () => {
     })
 
     it('should reset empty input or input of 0 to HuntsLeftInput to 1', () => {
-        const invokeOnBlur = () => wrapper.find(HuntsLeftInput).find(TextField).invoke('onBlur')()
+        const invokeOnBlur = () => wrapper.find(HuntsLeftInput).find(TextField).invoke('onBlur')!({} as InputFocusEvent)
 
         invokeOnBlur()
         expect(props.onHuntsLeftChange).not.toBeCalled()
@@ -126,7 +131,10 @@ describe('CurrentProgressInputGroup integration test', () => {
 
     it('should only allow empty input or input of natural numbers in StepsInput', () => {
         const invokeOnChange = (newSteps: string) =>
-            wrapper.find(StepsInput).find(TextField).invoke('onChange')({ type: 'input', target: { value: newSteps } })
+            wrapper.find(StepsInput).find(TextField).invoke('onChange')!({
+                type: 'input',
+                target: { value: newSteps }
+            } as InputChangeEvent)
 
         invokeOnChange('10a')
         expect(props.onStepsChange).not.toBeCalled()
@@ -146,7 +154,7 @@ describe('CurrentProgressInputGroup integration test', () => {
     })
 
     it('should be able to reset to start of run', () => {
-        wrapper.find(Button).filter('#btn-reset-run').invoke('onClick')()
+        wrapper.find(Button).filter('#btn-reset-run').invoke('onClick')!({} as React.MouseEvent<HTMLButtonElement>)
 
         expect(props.onHuntsLeftChange).toBeCalledTimes(1)
         expect(props.onHuntsLeftChange).lastCalledWith(props.initialSync)

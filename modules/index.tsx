@@ -13,7 +13,7 @@ export const IndexButtons = (): JSX.Element => {
     return (
         <Box display="flex" flexDirection="column" alignItems="center">
             {endpoints.calculators.map((e) => (
-                <MenuButton href={e.path} variant="outlined" key={e.path} width="100%">
+                <MenuButton href={e.path} variant="outlined" key={e.path}>
                     {e.name}
                 </MenuButton>
             ))}

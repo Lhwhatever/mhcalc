@@ -1,12 +1,14 @@
-import React from 'react'
-import NextLink from 'next/link'
 import { createShallow } from '@material-ui/core/test-utils'
+import { ShallowWrapper } from 'enzyme'
+import NextLink from 'next/link'
+import React from 'react'
 import asNextLink from '../asNextLink'
 
 describe('asNextLink tests', () => {
-    let shallow
-    let wrapper
-    let MockedComponent, AsNextLinkComponent
+    let shallow: ReturnType<typeof createShallow>
+    let wrapper: ShallowWrapper
+    let MockedComponent: React.ComponentType
+    let AsNextLinkComponent: ReturnType<typeof asNextLink>
 
     beforeAll(() => {
         shallow = createShallow()

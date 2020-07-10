@@ -11,8 +11,8 @@ export interface Augments {
 
 export interface SimInputsState {
     initialSync: InitialSync
-    huntsLeft: number
-    steps: number
+    huntsLeft?: number
+    steps?: number
     augments: Augments
 }
 

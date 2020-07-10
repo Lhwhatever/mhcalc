@@ -1,12 +1,13 @@
-import React from 'react'
-import ValourRiftSimPage from '../index'
 import { createShallow } from '@material-ui/core/test-utils'
-import CurrentProgressInputGroup from '../../../components/input/vrift/CurrentProgressInputGroup'
+import { ShallowWrapper } from 'enzyme'
+import React from 'react'
 import AugmentInputGroup from '../../../components/input/vrift/AugmentInputGroup'
+import CurrentProgressInputGroup from '../../../components/input/vrift/CurrentProgressInputGroup'
+import ValourRiftSimPage from '../index'
 
 describe('ValourRiftSimPage test', () => {
-    let shallow
-    let wrapper
+    let shallow: ReturnType<typeof createShallow>
+    let wrapper: ShallowWrapper
 
     beforeAll(() => {
         shallow = createShallow()

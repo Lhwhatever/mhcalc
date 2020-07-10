@@ -6,7 +6,7 @@ interface LinkProps {
     href?: string
 }
 
-function asNextLink<P extends Record<string, unknown>>(Component: React.ComponentType<P>): React.FC<LinkProps & P> {
+function asNextLink<P = Record<string, unknown>>(Component: React.ComponentType<P>): React.FC<LinkProps & P> {
     const AsNextLink = (props: LinkProps & P): JSX.Element => {
         const { href = '#', ...other } = props
         return (

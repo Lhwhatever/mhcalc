@@ -1,12 +1,13 @@
 import { AppBar, IconButton, Toolbar } from '@material-ui/core'
 import { createShallow } from '@material-ui/core/test-utils'
 import MenuIcon from '@material-ui/icons/Menu'
+import { ShallowWrapper } from 'enzyme'
 import React from 'react'
-import Navbar from '../Navbar'
+import Navbar, { NavbarProps } from '../Navbar'
 
 describe('Navbar tests', () => {
-    let shallow
-    let wrapper
+    let shallow: ReturnType<typeof createShallow>
+    let wrapper: ShallowWrapper<NavbarProps>
 
     beforeAll(() => {
         shallow = createShallow()

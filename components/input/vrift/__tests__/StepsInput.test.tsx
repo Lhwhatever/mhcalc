@@ -1,12 +1,13 @@
 import { TextField } from '@material-ui/core'
 import { createShallow } from '@material-ui/core/test-utils'
 import React from 'react'
-import StepsInput from '../StepsInput'
+import StepsInput, { StepsInputProps } from '../StepsInput'
 import IntegerInput from '../../IntegerInput'
+import { ShallowWrapper } from 'enzyme'
 
 describe('StepsInput test', () => {
-    let shallow
-    let wrapper
+    let shallow: ReturnType<typeof createShallow>
+    let wrapper: ShallowWrapper<StepsInputProps>
 
     beforeAll(() => {
         shallow = createShallow()

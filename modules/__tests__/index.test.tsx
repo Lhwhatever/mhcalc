@@ -1,12 +1,13 @@
 import { Box } from '@material-ui/core'
 import { createMount, createShallow } from '@material-ui/core/test-utils'
+import { ReactWrapper, ShallowWrapper } from 'enzyme'
 import React from 'react'
 import Layout from '../../components/layout/Layout'
 import IndexPage, { IndexButtons, MenuButton } from '../index'
 
 describe('/ tests', () => {
-    let shallow
-    let wrapper
+    let shallow: ReturnType<typeof createShallow>
+    let wrapper: ShallowWrapper
 
     beforeAll(() => {
         shallow = createShallow()
@@ -30,8 +31,8 @@ describe('/ tests', () => {
 })
 
 describe('IndexButtons test', () => {
-    let shallow
-    let wrapper
+    let shallow: ReturnType<typeof createShallow>
+    let wrapper: ShallowWrapper
 
     beforeAll(() => {
         shallow = createShallow()
@@ -53,8 +54,8 @@ describe('IndexButtons test', () => {
 })
 
 describe('mounted IndexButtons', () => {
-    let mount
-    let wrapper
+    let mount: ReturnType<typeof createMount>
+    let wrapper: ReactWrapper
 
     beforeAll(() => {
         mount = createMount()

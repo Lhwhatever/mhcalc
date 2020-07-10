@@ -2,7 +2,8 @@ import { createShallow } from '@material-ui/core/test-utils'
 import React from 'react'
 import { Augments, updateAugment } from '../../../../redux/ducks/vrift/simInput'
 import AugmentInputGroup from '../AugmentInputGroup'
-import AugmentSwitch from '../AugmentSwitch'
+import AugmentSwitch, { AugmentSwitchProps } from '../AugmentSwitch'
+import { ShallowWrapper } from 'enzyme'
 
 const dispatch = jest.fn()
 
@@ -13,7 +14,7 @@ jest.mock('react-redux', () => ({
 
 describe('AugmentInputGroup test', () => {
     let shallow: ReturnType<typeof createShallow>
-    let wrapper
+    let wrapper: ShallowWrapper
 
     beforeAll(() => {
         shallow = createShallow()
@@ -33,7 +34,11 @@ describe('AugmentInputGroup test', () => {
         expect(wrapper.find(AugmentSwitch)).toHaveLength(5)
         augmentNames.forEach((augment) => {
             expect(
-                wrapper.find(AugmentSwitch).filterWhere((wrapper) => wrapper.prop('label').match(augment))
+                wrapper
+                    .find(AugmentSwitch)
+                    .filterWhere(
+                        (wrapper: ShallowWrapper<AugmentSwitchProps>) => wrapper.prop('label').match(augment) !== null
+                    )
             ).toHaveLength(1)
         })
     })

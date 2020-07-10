@@ -31,7 +31,6 @@ exports[`NavDrawer test should render correctly 1`] = `
       </UngroupedEndpoint>
       <WithStyles(ForwardRef(Divider)) />
       <DrawerSubList
-        component="div"
         endpoints={
           Array [
             Object {

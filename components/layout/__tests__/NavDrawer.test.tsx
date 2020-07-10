@@ -1,10 +1,11 @@
 import { Box, IconButton, SwipeableDrawer } from '@material-ui/core'
 import { createShallow } from '@material-ui/core/test-utils'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
+import { ShallowWrapper } from 'enzyme'
 import React from 'react'
 import ListLinkItem from '../../link/ListLinkItem'
 import DrawerSubList from '../DrawerSubList'
-import NavDrawer, { NavDrawerEndpoints } from '../NavDrawer'
+import NavDrawer, { NavDrawerEndpoints, NavDrawerProps } from '../NavDrawer'
 
 const endpoints: NavDrawerEndpoints = {
     calculators: [
@@ -14,8 +15,8 @@ const endpoints: NavDrawerEndpoints = {
 }
 
 describe('NavDrawer test', () => {
-    let shallow
-    let wrapper
+    let shallow: ReturnType<typeof createShallow>
+    let wrapper: ShallowWrapper<NavDrawerProps>
 
     beforeAll(() => {
         shallow = createShallow()

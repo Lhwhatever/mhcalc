@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     drawerPaper: { [theme.breakpoints.up(altDrawerMinBreakpoint)]: { width: altDrawerWidth } }
 }))
 
-interface LayoutProps {
+export interface LayoutProps {
     children?: React.ReactNode
 }
 

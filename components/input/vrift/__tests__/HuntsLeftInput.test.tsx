@@ -1,11 +1,12 @@
 import { createShallow } from '@material-ui/core/test-utils'
 import React from 'react'
 import IntegerInput from '../../IntegerInput'
-import HuntsLeftInput from '../HuntsLeftInput'
+import HuntsLeftInput, { HuntsLeftInputProps } from '../HuntsLeftInput'
+import { ShallowWrapper } from 'enzyme'
 
 describe('HuntsLeftInput test', () => {
-    let shallow
-    let wrapper
+    let shallow: ReturnType<typeof createShallow>
+    let wrapper: ShallowWrapper<HuntsLeftInputProps>
 
     beforeAll(() => {
         shallow = createShallow()

@@ -2,11 +2,11 @@ import { MenuItem, TextField } from '@material-ui/core'
 import { createShallow } from '@material-ui/core/test-utils'
 import { ShallowWrapper } from 'enzyme'
 import React from 'react'
-import InitialSyncInput from '../InitialSyncInput'
+import InitialSyncInput, { SyncInputProps } from '../InitialSyncInput'
 
 describe('SyncInput test', () => {
-    let shallow
-    let wrapper
+    let shallow: ReturnType<typeof createShallow>
+    let wrapper: ShallowWrapper<SyncInputProps>
 
     beforeAll(() => {
         shallow = createShallow()

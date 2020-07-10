@@ -37,13 +37,11 @@ exports[`mounted IndexButtons should render correctly 1`] = `
         href="/vrift"
         key="/vrift"
         variant="outlined"
-        width="100%"
       >
         <AsNextLink(WithStyles(ForwardRef(Button)))
           className="AsNextLink(WithStyles(ForwardRef(Button)))-root-4"
           href="/vrift"
           variant="outlined"
-          width="100%"
         >
           <Link
             href="/vrift"
@@ -55,7 +53,6 @@ exports[`mounted IndexButtons should render correctly 1`] = `
               onClick={[Function]}
               onMouseEnter={[Function]}
               variant="outlined"
-              width="100%"
             >
               <ForwardRef(Button)
                 className="AsNextLink(WithStyles(ForwardRef(Button)))-root-4"
@@ -96,7 +93,6 @@ exports[`mounted IndexButtons should render correctly 1`] = `
                 onClick={[Function]}
                 onMouseEnter={[Function]}
                 variant="outlined"
-                width="100%"
               >
                 <WithStyles(ForwardRef(ButtonBase))
                   className="MuiButton-root MuiButton-outlined AsNextLink(WithStyles(ForwardRef(Button)))-root-4"
@@ -108,7 +104,6 @@ exports[`mounted IndexButtons should render correctly 1`] = `
                   onClick={[Function]}
                   onMouseEnter={[Function]}
                   type="button"
-                  width="100%"
                 >
                   <ForwardRef(ButtonBase)
                     className="MuiButton-root MuiButton-outlined AsNextLink(WithStyles(ForwardRef(Button)))-root-4"
@@ -127,7 +122,6 @@ exports[`mounted IndexButtons should render correctly 1`] = `
                     onClick={[Function]}
                     onMouseEnter={[Function]}
                     type="button"
-                    width="100%"
                   >
                     <a
                       aria-disabled={false}
@@ -147,7 +141,6 @@ exports[`mounted IndexButtons should render correctly 1`] = `
                       onTouchMove={[Function]}
                       onTouchStart={[Function]}
                       tabIndex={0}
-                      width="100%"
                     >
                       <span
                         className="MuiButton-label"

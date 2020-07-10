@@ -1,12 +1,13 @@
 import { Box, List } from '@material-ui/core'
 import { createShallow } from '@material-ui/core/test-utils'
-import React from 'react'
+import React, { ReactElement } from 'react'
 import ListLinkItem from '../../link/ListLinkItem'
-import DrawerSubList from '../DrawerSubList'
+import DrawerSubList, { DrawerSubListProps } from '../DrawerSubList'
+import { ShallowWrapper } from 'enzyme'
 
 describe('DrawerSubList tests', () => {
-    let shallow
-    let wrapper
+    let shallow: ReturnType<typeof createShallow>
+    let wrapper: ShallowWrapper<DrawerSubListProps>
 
     beforeAll(() => {
         shallow = createShallow()
@@ -58,7 +59,9 @@ describe('DrawerSubList tests', () => {
         wrapper.setProps({ subheader: 'foo' })
         wrapperList = wrapper.find(List)
         expect(wrapperList.prop('subheader')).toBeDefined()
-        const wrapperSubheader = shallow(wrapperList.prop('subheader'))
+        console.log(wrapperList.prop('subheader'))
+        const wrapperSubheader = shallow(wrapperList.prop('subheader') as ReactElement)
+
         expect(wrapperSubheader.text()).toStrictEqual('foo')
     })
 
@@ -68,17 +71,7 @@ describe('DrawerSubList tests', () => {
         wrapper.setProps({ subheader: 'foo' })
         const ariaLabelledBy = wrapper.find(List).prop('aria-labelledby')
         expect(ariaLabelledBy).toBeDefined()
-        const wrapperSubheader = shallow(wrapper.find(List).prop('subheader'))
+        const wrapperSubheader = shallow(wrapper.find(List).prop('subheader') as ReactElement)
         expect(ariaLabelledBy).toStrictEqual(wrapperSubheader.prop('id'))
-    })
-
-    it('should forward the component prop to List', () => {
-        expect(wrapper.find(List).prop('component')).toBeUndefined()
-
-        wrapper.setProps({ component: 'div' })
-        expect(wrapper.find(List).prop('component')).toStrictEqual('div')
-
-        wrapper.setProps({ component: Box })
-        expect(wrapper.find(List).prop('component')).toStrictEqual(Box)
     })
 })

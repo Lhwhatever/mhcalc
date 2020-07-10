@@ -25,8 +25,8 @@ export default function ValourRiftSimPage(): JSX.Element {
     const classes = useStyles()
 
     const [initialSync, setInitialSync] = React.useState<InitialSync>(100)
-    const [huntsLeft, setHuntsLeft] = React.useState(initialSync as number)
-    const [steps, setSteps] = React.useState(0)
+    const [huntsLeft, setHuntsLeft] = React.useState<number | undefined>(initialSync)
+    const [steps, setSteps] = React.useState<number | undefined>(0)
 
     const currentProgressInputGrpProps: CurrentProgressInputGroupProps = {
         initialSync,

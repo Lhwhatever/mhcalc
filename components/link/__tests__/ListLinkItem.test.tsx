@@ -1,12 +1,13 @@
-import React from 'react'
+import { ListItem, ListItemText } from '@material-ui/core'
+import { createMount, createShallow } from '@material-ui/core/test-utils'
+import { ReactWrapper, ShallowWrapper } from 'enzyme'
 import NextLink from 'next/link'
-import { createShallow, createMount } from '@material-ui/core/test-utils'
-import ListLinkItem from '../ListLinkItem'
-import { ListItemText, ListItem } from '@material-ui/core'
+import React from 'react'
+import ListLinkItem, { ListLinkItemProps } from '../ListLinkItem'
 
 describe('ListLinkItem test', () => {
-    let shallow
-    let wrapper
+    let shallow: ReturnType<typeof createShallow>
+    let wrapper: ShallowWrapper<ListLinkItemProps>
 
     beforeAll(() => {
         shallow = createShallow()
@@ -31,8 +32,8 @@ describe('ListLinkItem test', () => {
 })
 
 describe('mount ListLinkItem', () => {
-    let mount
-    let wrapper
+    let mount: ReturnType<typeof createMount>
+    let wrapper: ReactWrapper<ListLinkItemProps>
 
     beforeAll(() => {
         mount = createMount()
