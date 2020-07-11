@@ -1,86 +1,96 @@
-import React from 'react'
-import { createShallow } from '@material-ui/core/test-utils'
-import { TextField } from '@material-ui/core'
-import IntegerInput, { IntegerInputProps } from '../IntegerInput'
 import { coerceToRange } from '../../../utils/number'
-import { ShallowWrapper } from 'enzyme'
-import { InputChangeEvent, InputFocusEvent } from '../types'
+import { createChangeEvent, createSetup, fireEvent, screen } from '../../../utils/test'
+import IntegerInput, { IntegerInputProps } from '../IntegerInput'
 
 jest.mock('../../../utils/number', () => ({
     coerceToRange: jest.fn()
 }))
 
 describe('IntegerInput test', () => {
-    let shallow: ReturnType<typeof createShallow>
-    let wrapper: ShallowWrapper<IntegerInputProps>
+    const props: IntegerInputProps = {
+        label: 'foo',
+        id: 'foo',
+        onChange: jest.fn()
+    }
 
-    const onChange = jest.fn()
+    const setup = createSetup(IntegerInput, props)
 
-    beforeAll(() => {
-        shallow = createShallow()
+    const getInput = () => screen.getByLabelText('foo')
+
+    it('should have a label', () => {
+        setup()
+        const input = getInput()
+
+        expect(input).toBeInTheDocument()
     })
 
-    beforeEach(() => {
-        wrapper = shallow(<IntegerInput onChange={onChange} />)
+    it('should use type number', () => {
+        setup()
+        const input = getInput()
+
+        expect(input).toHaveProperty('type', 'number')
     })
 
-    it('should use TextField[type="number"]', () => {
-        expect(wrapper.find(TextField)).toHaveLength(1)
-        expect(wrapper.find(TextField).prop('type')).toStrictEqual('number')
+    it('should accept integral or empty input', () => {
+        setup()
+        const input = getInput()
+
+        fireEvent.change(input, createChangeEvent('42'))
+        expect(props.onChange).lastCalledWith(42)
+
+        fireEvent.change(input, createChangeEvent('-1'))
+        expect(props.onChange).lastCalledWith(-1)
+
+        fireEvent.change(input, createChangeEvent(''))
+        fireEvent.blur(input)
+        expect(props.onChange).lastCalledWith(undefined)
     })
 
-    it('should only accept numeric input or empty input', () => {
-        const invokeChange = (value: string) =>
-            wrapper.find(TextField).invoke('onChange')!({ type: 'change', target: { value } } as InputChangeEvent)
+    it('should reject non-integral input', () => {
+        setup()
+        const input = getInput()
 
-        invokeChange('1a')
-        expect(onChange).not.toBeCalled()
+        fireEvent.change(input, createChangeEvent('1a'))
+        expect(props.onChange).not.toBeCalled()
 
-        invokeChange('1')
-        expect(onChange).toBeCalledWith(1)
-
-        invokeChange('20')
-        expect(onChange).toBeCalledWith(20)
-
-        invokeChange('-15')
-        expect(onChange).toBeCalledWith(-15)
-
-        invokeChange('')
-        expect(onChange).toBeCalledWith(undefined)
+        fireEvent.change(input, createChangeEvent('1.5'))
+        expect(props.onChange).not.toBeCalled()
     })
 
-    it('should pass min and max props to the input field underneath', () => {
-        wrapper.setProps({ min: -42, max: 9001 })
+    it('should pass the min and max properties to input', () => {
+        const { rerender } = setup({ min: 1 })
+        const input = getInput()
 
-        const inputProps = wrapper.find(TextField).prop('inputProps')
-        expect(inputProps).toBeDefined()
-        expect(inputProps!.min).toBe(-42)
-        expect(inputProps!.max).toBe(9001)
+        expect(input).toHaveAttribute('min', '1')
+        expect(input).not.toHaveAttribute('max')
+
+        rerender({ max: 5 })
+        expect(input).not.toHaveAttribute('min')
+        expect(input).toHaveAttribute('max', '5')
+
+        rerender({ min: 1, max: 5 })
+        expect(input).toHaveAttribute('min', '1')
+        expect(input).toHaveAttribute('max', '5')
     })
 
-    it('should, on unfocus, coerce undefined to zero and all values to the given min/max range', () => {
-        const invokeUnfocus = () => wrapper.find(TextField).invoke('onBlur')!({} as InputFocusEvent)
+    it('should, on blur, try to coerce values into the given range', () => {
+        setup({ value: -1, min: 1, max: 5 })
+        const input = getInput()
 
-        wrapper.setProps({ value: 5, min: 1, max: undefined })
-        invokeUnfocus()
-        expect(onChange).not.toBeCalled()
+        fireEvent.blur(input)
+        expect(coerceToRange).toBeCalledWith(-1, 1, 5)
+    })
 
-        wrapper.setProps({ value: 5, min: undefined, max: 10 })
-        invokeUnfocus()
-        expect(onChange).not.toBeCalled()
+    it('should, on blur, try to coerce undefined as zero', () => {
+        setup({ value: undefined, min: -5, max: 5 })
+        const input = getInput()
 
-        wrapper.setProps({ value: undefined, min: undefined, max: undefined })
-        invokeUnfocus()
-        expect(onChange).toBeCalled()
-        expect(coerceToRange).toBeCalled()
-        expect(coerceToRange).toBeCalledWith(0, -Infinity, +Infinity)
-
-        wrapper.setProps({ value: undefined, min: 1, max: 10 })
-        invokeUnfocus()
-        expect(coerceToRange).toBeCalledWith(0, 1, 10)
+        fireEvent.blur(input)
+        expect(coerceToRange).toBeCalledWith(0, -5, 5)
     })
 
     it('should match snapshot', () => {
-        expect(wrapper).toMatchSnapshot()
+        setup()
+        expect(screen).toMatchSnapshot()
     })
 })

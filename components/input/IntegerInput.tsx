@@ -5,26 +5,33 @@ import { asInteger, renderNumber } from '../../utils/str'
 import { InputChangeEvent } from './types'
 
 interface BaseNumericInputProps {
-    onChange: (newValue: number | undefined) => void
+    onChange?: (newValue: number | undefined) => void
     value?: number
     min?: number
     max?: number
     variant?: 'outlined' | 'filled'
+    id: string
+    label: string
 }
 
-export type IntegerInputProps = BaseNumericInputProps & Pick<TextFieldProps, 'fullWidth' | 'label'>
+export type IntegerInputProps = BaseNumericInputProps & Pick<TextFieldProps, 'fullWidth'>
 
 const IntegerInput = (props: IntegerInputProps): JSX.Element => {
-    const { onChange, min = -Infinity, max = +Infinity, value, variant, ...other } = props
+    const { onChange, min, max, value, variant, ...other } = props
 
-    const handleChange = (event: InputChangeEvent) => {
-        if (event.target.value === '') onChange(undefined)
-        if (/^-?\d+$/.test(event.target.value)) onChange(asInteger(event.target.value))
-    }
+    const handleChange = onChange
+        ? (event: InputChangeEvent) => {
+              if (event.target.value === '') onChange(undefined)
+              if (/^-?\d+$/.test(event.target.value)) onChange(asInteger(event.target.value))
+          }
+        : undefined
 
-    const handleUnfocus = () => {
-        if (value === undefined || value < min || value > max) onChange(coerceToRange(value ?? 0, min, max))
-    }
+    const handleUnfocus = onChange
+        ? () => {
+              if (value === undefined || value < (min ?? -Infinity) || value > (max ?? +Infinity))
+                  onChange(coerceToRange(value ?? 0, min, max))
+          }
+        : undefined
 
     return (
         <TextField

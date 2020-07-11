@@ -78,10 +78,15 @@ const CurrentProgressInputGroup = (): JSX.Element => {
                     </Tooltip>
                 </div>
                 <div className={classes.inputField}>
-                    <HuntsLeftInput fullWidth value={huntsLeft} onChange={handleHuntsLeftChange} />
+                    <HuntsLeftInput
+                        fullWidth
+                        value={huntsLeft}
+                        onChange={handleHuntsLeftChange}
+                        id="hunts-left-input"
+                    />
                 </div>
                 <div className={classes.inputField}>
-                    <StepsInput fullWidth value={steps} onChange={handleStepsChange} />
+                    <StepsInput fullWidth value={steps} onChange={handleStepsChange} id="steps-input" />
                 </div>
             </Box>
             <Box mt={2} display="flex" flexDirection="row-reverse">
