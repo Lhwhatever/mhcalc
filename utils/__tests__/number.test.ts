@@ -11,4 +11,15 @@ describe('number test', () => {
         expect(coerceToRange(0, 1, undefined)).toBe(1)
         expect(coerceToRange(5, undefined, 4)).toBe(4)
     })
+
+    test('coerceToRange default values', () => {
+        const minSpy = jest.spyOn(Math, 'min')
+        const maxSpy = jest.spyOn(Math, 'max')
+
+        coerceToRange(1, undefined, 5)
+        expect(maxSpy).lastCalledWith(1, -Infinity)
+
+        coerceToRange(1, 0)
+        expect(minSpy).lastCalledWith(1, +Infinity)
+    })
 })
