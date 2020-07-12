@@ -17,7 +17,7 @@ describe('CurrentProgressInputGroup test', () => {
     })
 
     it('should have a label', () => {
-        expect(screen.getByText(/current progress/i)).toBeInTheDocument()
+        expect(screen.getByRole('heading', { name: /current progress/i })).toBeInTheDocument()
     })
 
     it('should have three inputs', () => {

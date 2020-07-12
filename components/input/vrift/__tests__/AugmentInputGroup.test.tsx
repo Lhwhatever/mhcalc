@@ -18,7 +18,7 @@ describe('AugmentInputGroup test', () => {
     })
 
     it('should have a header', () => {
-        expect(screen.getByText(/augments/i)).toBeInTheDocument()
+        expect(screen.getByRole('heading', { name: /augments/i })).toBeInTheDocument()
     })
 
     it('should have seven checkbox inputs', () => {
