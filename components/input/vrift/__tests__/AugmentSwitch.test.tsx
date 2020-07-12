@@ -1,59 +1,36 @@
-import { Checkbox, Avatar } from '@material-ui/core'
-import { createShallow } from '@material-ui/core/test-utils'
 import React from 'react'
-import AugmentSwitch, { AugmentSwitchProps } from '../AugmentSwitch'
-import { ShallowWrapper } from 'enzyme'
-import { InputChangeEvent } from '../../types'
+import { fireEvent, render, screen } from '../../../../utils/testing/test'
+import AugmentSwitch from '../AugmentSwitch'
 
 describe('AugmentSwitch test', () => {
-    let shallow: ReturnType<typeof createShallow>
-    let wrapper: ShallowWrapper<AugmentSwitchProps>
-    let props: AugmentSwitchProps
-
-    beforeAll(() => {
-        shallow = createShallow()
-        props = {
-            label: 'foo bar',
-            iconUri: '/foo',
-            onChange: jest.fn()
-        }
-    })
+    const props = {
+        label: 'foo bar',
+        iconUri: '/foo.png',
+        onChange: jest.fn()
+    }
 
     beforeEach(() => {
-        wrapper = shallow(<AugmentSwitch {...props} />)
+        render(<AugmentSwitch {...props} />)
     })
 
-    it('should use a Checkbox', () => {
-        expect(wrapper.find(Checkbox)).toHaveLength(1)
+    it('should have a label', () => {
+        expect(screen.getByText(props.label)).toBeInTheDocument()
+        expect(screen.getByLabelText(props.label)).toBeInTheDocument()
     })
 
-    it('should have an ARIA label', () => {
-        expect(wrapper.find(Checkbox).prop('inputProps')).toHaveProperty('aria-labelledby')
-
-        const labelledBy = '#' + wrapper.find(Checkbox).prop('inputProps')!['aria-labelledby']
-        expect(wrapper.find(labelledBy)).toHaveLength(1)
-        expect(wrapper.find(labelledBy).text()).toMatch(/foo bar/i)
+    it('should have an icon with alt text', () => {
+        expect(screen.getByRole('img')).toBeInTheDocument()
+        expect(screen.getByRole('img')).toHaveAttribute('alt', props.label)
     })
 
-    it('should use an Avatar with the given icon', () => {
-        expect(wrapper.find(Avatar)).toHaveLength(1)
-        expect(wrapper.find(Avatar).prop('src')).toStrictEqual('/foo')
-    })
-
-    it('should handle the onChange event of Checkbox', () => {
-        const invokeOnChange = (state: boolean) =>
-            wrapper.find(Checkbox).invoke('onChange')!(
-                {
-                    target: { checked: state }
-                } as InputChangeEvent,
-                state
-            )
-
-        invokeOnChange(true)
-        expect(props.onChange).toBeCalled()
+    it('should be functional', () => {
+        const checkbox = screen.getByLabelText(props.label)
+        fireEvent.click(checkbox)
         expect(props.onChange).lastCalledWith(true)
+        expect(checkbox).toBeChecked()
 
-        invokeOnChange(false)
+        fireEvent.click(checkbox)
         expect(props.onChange).lastCalledWith(false)
+        expect(checkbox).not.toBeChecked()
     })
 })

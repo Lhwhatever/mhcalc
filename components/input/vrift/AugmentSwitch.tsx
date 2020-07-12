@@ -31,7 +31,7 @@ const AugmentSwitch = (props: AugmentSwitchProps): JSX.Element => {
     return (
         <React.Fragment>
             <Checkbox inputProps={{ 'aria-labelledby': labelId }} checked={checked} onChange={handleCheckboxChange} />
-            <Avatar src={iconUri} className={classes.augmentIcon} />
+            <Avatar src={iconUri} className={classes.augmentIcon} alt={label} />
             <Typography variant="body1" id={labelId}>
                 {label}
             </Typography>
