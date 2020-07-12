@@ -1,5 +1,5 @@
 import React from 'react'
-import { KeyEvents } from '../../../../utils/testing/event'
+import { setupMuiSelectTest } from '../../../../utils/testing/other'
 import { fireEvent, render, screen } from '../../../../utils/testing/test'
 import { InputChangeEvent } from '../../types'
 import InitialSyncInput from '../InitialSyncInput'
@@ -19,8 +19,7 @@ describe('InitialSyncInput test', () => {
 
     it('should have all 7 options', async () => {
         const selectField = getSelectField()
-        fireEvent.keyDown(selectField, KeyEvents.ArrowDown)
-        await screen.findAllByText(/Lvl\./i)
+        await setupMuiSelectTest(selectField, async () => screen.findAllByText(/Lvl\./i))
 
         for (let i = 1; i <= 7; ++i) {
             const matcher = new RegExp('Lvl. ' + i, 'i')
@@ -35,8 +34,7 @@ describe('InitialSyncInput test', () => {
 
     it('should pass change events to the given handler', async () => {
         const selectField = getSelectField()
-        fireEvent.keyDown(selectField, KeyEvents.ArrowDown)
-        await screen.findAllByText(/Lvl\./i)
+        await setupMuiSelectTest(selectField, async () => screen.findAllByText(/Lvl\./i))
 
         fireEvent.click(screen.getByText(/Lvl\. 2/i))
         expect(handleChange).toBeCalled()

@@ -1,9 +1,10 @@
 import React from 'react'
 import { updateHuntsLeft, updateInitialSync, updateSteps } from '../../../../redux/ducks/vrift/simInput'
-import { createChangeEvent, KeyEvents } from '../../../../utils/testing/event'
+import { createChangeEvent } from '../../../../utils/testing/event'
 import mockStore from '../../../../utils/testing/mockStore'
 import { createRenderWithRedux, fireEvent, screen } from '../../../../utils/testing/test'
 import CurrentProgressInputGroup from '../CurrentProgressInputGroup'
+import { setupMuiSelectTest } from '../../../../utils/testing/other'
 
 describe('CurrentProgressInputGroup test', () => {
     const store = mockStore({
@@ -30,8 +31,8 @@ describe('CurrentProgressInputGroup test', () => {
         expect(screen.getByTitle(/final sync level/i)).toBeInTheDocument()
     })
 
-    it('should handle changes in InitialSyncInput', () => {
-        fireEvent.keyDown(screen.getByLabelText(/sync/i), KeyEvents.ArrowDown)
+    it('should handle changes in InitialSyncInput', async () => {
+        await setupMuiSelectTest(screen.getByLabelText(/^sync$/i), async () => screen.findAllByText(/Lvl\. 2/))
         fireEvent.click(screen.getByText(/Lvl\. 2/))
         expect(dispatchSpy).toBeCalledWith(updateInitialSync(50))
     })
