@@ -1,55 +1,49 @@
-import { createShallow } from '@material-ui/core/test-utils'
 import React from 'react'
 import { Augments, updateAugment } from '../../../../redux/ducks/vrift/simInput'
+import mockStore from '../../../../utils/testing/mockStore'
+import { createRenderWithRedux, fireEvent, screen } from '../../../../utils/testing/test'
 import AugmentInputGroup from '../AugmentInputGroup'
-import AugmentSwitch, { AugmentSwitchProps } from '../AugmentSwitch'
-import { ShallowWrapper } from 'enzyme'
-
-const dispatch = jest.fn()
-
-jest.mock('react-redux', () => ({
-    useSelector: jest.fn((): Augments => ({})),
-    useDispatch: jest.fn(() => dispatch)
-}))
 
 describe('AugmentInputGroup test', () => {
-    let shallow: ReturnType<typeof createShallow>
-    let wrapper: ShallowWrapper
-
-    beforeAll(() => {
-        shallow = createShallow()
+    const initialAugmentState: Augments = { superSiphon: true }
+    const store = mockStore({
+        vrift: { simInput: { augments: initialAugmentState } }
     })
 
+    const dispatchSpy = jest.spyOn(store, 'dispatch')
+    const augmentNames = [/sigil hunter/i, /secret research/i, /super siphon/i, /ultimate umbra/i, /string stepping/i]
+
     beforeEach(() => {
-        wrapper = shallow(<AugmentInputGroup />)
+        createRenderWithRedux(store)(<AugmentInputGroup />)
     })
 
     it('should have a header', () => {
-        expect(wrapper.text()).toMatch(/augments/i)
+        expect(screen.getByText(/augments/i)).toBeInTheDocument()
     })
 
-    const augmentNames = [/sigil hunter/i, /secret research/i, /super siphon/i, /ultimate umbra/i, /string stepping/i]
-
-    it(`should have ${augmentNames.length} AugmentSwitchGroups`, () => {
-        expect(wrapper.find(AugmentSwitch)).toHaveLength(5)
+    it('should have seven checkbox inputs', () => {
         augmentNames.forEach((augment) => {
-            expect(
-                wrapper
-                    .find(AugmentSwitch)
-                    .filterWhere(
-                        (wrapper: ShallowWrapper<AugmentSwitchProps>) => wrapper.prop('label').match(augment) !== null
-                    )
-            ).toHaveLength(1)
+            expect(screen.getByLabelText(augment)).toBeInTheDocument()
         })
     })
 
-    it('should create correct augment state handlers', () => {
-        wrapper.find(AugmentSwitch).filter({ label: 'Sigil Hunter' }).invoke('onChange')(true)
-        expect(dispatch).toBeCalled()
-        expect(dispatch).toBeCalledWith({ type: updateAugment.type, payload: { target: 'sigilHunter', state: true } })
+    it('should show the state of the checkboxes', () => {
+        ;[0, 1, 3, 4].forEach((i) => {
+            expect(screen.getByLabelText(augmentNames[i])).not.toBeChecked()
+        })
+
+        expect(screen.getByLabelText(augmentNames[2])).toBeChecked()
+    })
+
+    it('should dispatch changes to the redux store', () => {
+        fireEvent.click(screen.getByLabelText(augmentNames[0]))
+        expect(dispatchSpy).lastCalledWith(updateAugment({ target: 'sigilHunter', state: true }))
+
+        fireEvent.click(screen.getByLabelText(augmentNames[2]))
+        expect(dispatchSpy).lastCalledWith(updateAugment({ target: 'superSiphon', state: false }))
     })
 
     it('should match snapshot', () => {
-        expect(wrapper).toMatchSnapshot()
+        expect(screen).toMatchSnapshot()
     })
 })
