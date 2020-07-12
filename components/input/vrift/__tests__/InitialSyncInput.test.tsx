@@ -1,37 +1,35 @@
-import { MenuItem, TextField } from '@material-ui/core'
-import { createShallow } from '@material-ui/core/test-utils'
-import { ShallowWrapper } from 'enzyme'
 import React from 'react'
-import InitialSyncInput, { SyncInputProps } from '../InitialSyncInput'
+import { fireEvent, render, screen } from '../../../../utils/test'
+import InitialSyncInput from '../InitialSyncInput'
 
-describe('SyncInput test', () => {
-    let shallow: ReturnType<typeof createShallow>
-    let wrapper: ShallowWrapper<SyncInputProps>
-
-    beforeAll(() => {
-        shallow = createShallow()
-    })
+describe('InitialSyncInput test', () => {
+    const getSelectField = () => screen.getByLabelText(/sync/i)
 
     beforeEach(() => {
-        wrapper = shallow(<InitialSyncInput />)
+        render(<InitialSyncInput id="sync-input" />)
     })
 
-    it('should use TextField[select][label=Sync]', () => {
-        expect(wrapper.find(TextField)).toHaveLength(1)
-        expect(wrapper.find(TextField).filter('[select][label="Sync"]')).toHaveLength(1)
+    it('should be a select field and have a label', () => {
+        const selectField = getSelectField()
+        expect(selectField).toBeInTheDocument()
     })
 
-    it('should have options for Lvl. 1-7 (40-100 Sync)', () => {
-        expect(wrapper.find(MenuItem)).toHaveLength(7)
-        wrapper.find(MenuItem).forEach((option: ShallowWrapper, i: number) => {
-            const sync = i * 10 + 40
-            expect(option.prop('value')).toStrictEqual(sync)
-            expect(option.text()).toMatch(`Lvl. ${i + 1}`)
-            expect(option.text()).toMatch(`${sync} Sync`)
-        })
+    it('should have all 7 options', async () => {
+        const selectField = getSelectField()
+        fireEvent.keyDown(selectField, { key: 'ArrowDown' })
+        await screen.findAllByText(/Lvl\./i)
+
+        for (let i = 1; i <= 7; ++i) {
+            const matcher = new RegExp('Lvl. ' + i, 'i')
+            const sync = (i * 10 + 30).toString()
+
+            expect(screen.getByText(matcher)).toBeInTheDocument()
+            expect(screen.getByText(matcher)).toHaveTextContent(new RegExp(sync))
+            expect(screen.getByText(matcher)).toHaveAttribute('data-value', sync)
+        }
     })
 
     it('should match snapshot', () => {
-        expect(wrapper).toMatchSnapshot()
+        expect(screen).toMatchSnapshot()
     })
 })
