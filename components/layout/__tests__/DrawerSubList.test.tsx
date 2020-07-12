@@ -1,9 +1,9 @@
-import { Box, List } from '@material-ui/core'
+import { List } from '@material-ui/core'
 import { createShallow } from '@material-ui/core/test-utils'
+import { ShallowWrapper } from 'enzyme'
 import React, { ReactElement } from 'react'
 import ListLinkItem from '../../link/ListLinkItem'
 import DrawerSubList, { DrawerSubListProps } from '../DrawerSubList'
-import { ShallowWrapper } from 'enzyme'
 
 describe('DrawerSubList tests', () => {
     let shallow: ReturnType<typeof createShallow>

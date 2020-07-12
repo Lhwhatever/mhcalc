@@ -1,7 +1,7 @@
 import { IconButton, ThemeProvider } from '@material-ui/core'
 import { createMount } from '@material-ui/core/test-utils'
 import { ReactWrapper } from 'enzyme'
-import React, { useCallback, SyntheticEvent } from 'react'
+import React, { useCallback } from 'react'
 import theme from '../../../theme'
 import Layout, { LayoutProps } from '../Layout'
 import Navbar from '../Navbar'
