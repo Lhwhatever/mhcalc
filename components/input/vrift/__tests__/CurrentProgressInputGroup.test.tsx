@@ -50,7 +50,6 @@ describe('CurrentProgressInputGroup test', () => {
         expect(dispatchSpy).toBeCalledWith(updateSteps(15))
     })
 
-    // TODO: Button to reset progress
     it('should have a working reset button', () => {
         const button = screen.getByRole('button', { name: /reset progress/i })
 

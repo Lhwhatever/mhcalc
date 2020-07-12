@@ -70,7 +70,12 @@ const CurrentProgressInputGroup = (): JSX.Element => {
                     />
                 </div>
                 <div className={classes.inputField}>
-                    <InitialSyncInput fullWidth value={initialSync} onChange={handleInitialSyncChange} />
+                    <InitialSyncInput
+                        fullWidth
+                        value={initialSync}
+                        onChange={handleInitialSyncChange}
+                        id="initial-sync-input"
+                    />
                 </div>
                 <div className={classes.inputAdornment}>
                     <Tooltip title="If you are upgrading Sync during the run, use the final Sync level.">
