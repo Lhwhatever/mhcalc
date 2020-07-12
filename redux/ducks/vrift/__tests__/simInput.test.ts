@@ -5,6 +5,26 @@ describe('vriftSlice test', () => {
         expect(reducer(undefined, { type: undefined })).toStrictEqual(simInput.initialState)
     })
 
+    it('should have working action creators', () => {
+        expect(simInput.updateInitialSync(80).payload).toBe(80)
+        expect(simInput.updateInitialSync(90).payload).toBe(90)
+
+        expect(simInput.updateHuntsLeft(20).payload).toBe(20)
+        expect(simInput.updateHuntsLeft(30).payload).toBe(30)
+
+        expect(simInput.updateSteps(20).payload).toBe(20)
+        expect(simInput.updateSteps(30).payload).toBe(30)
+
+        expect(simInput.updateAugment({ target: 'sigilHunter', state: true }).payload).toStrictEqual({
+            target: 'sigilHunter',
+            state: true
+        })
+        expect(simInput.updateAugment({ target: 'superSiphon', state: false }).payload).toStrictEqual({
+            target: 'superSiphon',
+            state: false
+        })
+    })
+
     it('should handle simInputs/updateInitialSync', () => {
         expect(reducer(simInput.initialState, simInput.updateInitialSync(70))).toStrictEqual({
             ...simInput.initialState,
