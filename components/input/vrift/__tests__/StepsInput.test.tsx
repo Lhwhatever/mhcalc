@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen } from '../../../../utils/test'
+import { render, screen } from '../../../../utils/testing/test'
 import StepsInput from '../StepsInput'
 
 describe('StepsInput test', () => {

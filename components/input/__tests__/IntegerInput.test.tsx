@@ -1,12 +1,11 @@
-import { coerceToRange } from '../../../utils/number'
-import { createChangeEvent, createSetup, fireEvent, screen } from '../../../utils/test'
+import * as number from '../../../utils/number'
+import { createSetup, fireEvent, screen } from '../../../utils/testing/test'
+import { createChangeEvent } from '../../../utils/testing/event'
 import IntegerInput, { IntegerInputProps } from '../IntegerInput'
 
-jest.mock('../../../utils/number', () => ({
-    coerceToRange: jest.fn()
-}))
-
 describe('IntegerInput test', () => {
+    const coerceToRangeSpy = jest.spyOn(number, 'coerceToRange')
+
     const props: IntegerInputProps = {
         label: 'foo',
         id: 'foo',
@@ -40,10 +39,6 @@ describe('IntegerInput test', () => {
 
         fireEvent.change(input, createChangeEvent('-1'))
         expect(props.onChange).lastCalledWith(-1)
-
-        fireEvent.change(input, createChangeEvent(''))
-        fireEvent.blur(input)
-        expect(props.onChange).lastCalledWith(undefined)
     })
 
     it('should reject non-integral input', () => {
@@ -78,7 +73,8 @@ describe('IntegerInput test', () => {
         const input = getInput()
 
         fireEvent.blur(input)
-        expect(coerceToRange).toBeCalledWith(-1, 1, 5)
+        expect(coerceToRangeSpy).lastCalledWith(-1, 1, 5)
+        expect(props.onChange).toBeCalledWith(coerceToRangeSpy.getMockImplementation()(-1, 1, 5))
     })
 
     it('should, on blur, try to coerce undefined as zero', () => {
@@ -86,7 +82,15 @@ describe('IntegerInput test', () => {
         const input = getInput()
 
         fireEvent.blur(input)
-        expect(coerceToRange).toBeCalledWith(0, -5, 5)
+        expect(coerceToRangeSpy).toBeCalledWith(0, -5, 5)
+        expect(props.onChange).toBeCalledWith(coerceToRangeSpy.getMockImplementation()(0, -5, 5))
+    })
+
+    it('should be uncontrolled if no onChange is given', () => {
+        setup({ onChange: undefined })
+        const input = getInput()
+        fireEvent.change(input, createChangeEvent('5'))
+        expect(input).toHaveValue(null)
     })
 
     it('should match snapshot', () => {

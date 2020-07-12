@@ -1,58 +1,62 @@
-import { Button, Tooltip } from '@material-ui/core'
-import { createShallow } from '@material-ui/core/test-utils'
-import InfoIconOutlined from '@material-ui/icons/InfoOutlined'
-import { ShallowWrapper } from 'enzyme'
 import React from 'react'
-import { SimInputsState } from '../../../../redux/ducks/vrift/simInput'
+import { updateHuntsLeft, updateInitialSync, updateSteps } from '../../../../redux/ducks/vrift/simInput'
+import { createChangeEvent, KeyEvents } from '../../../../utils/testing/event'
+import mockStore from '../../../../utils/testing/mockStore'
+import { createRenderWithRedux, fireEvent, screen } from '../../../../utils/testing/test'
 import CurrentProgressInputGroup from '../CurrentProgressInputGroup'
-import HuntsLeftInput from '../HuntsLeftInput'
-import InitialSyncInput from '../InitialSyncInput'
-import StepsInput from '../StepsInput'
-
-jest.mock('react-redux', () => ({
-    useDispatch: () => jest.fn(),
-    useSelector: (): SimInputsState => ({
-        initialSync: 100,
-        huntsLeft: 100,
-        steps: 0,
-        augments: {}
-    })
-}))
 
 describe('CurrentProgressInputGroup test', () => {
-    let shallow: ReturnType<typeof createShallow>
-    let wrapper: ShallowWrapper
-
-    beforeAll(() => {
-        shallow = createShallow()
+    const store = mockStore({
+        vrift: { simInput: { initialSync: 100, huntsLeft: 100, steps: 0 } }
     })
+
+    const dispatchSpy = jest.spyOn(store, 'dispatch')
 
     beforeEach(() => {
-        wrapper = shallow(<CurrentProgressInputGroup />)
+        createRenderWithRedux(store)(<CurrentProgressInputGroup />)
     })
 
-    it('should have a header', () => {
-        expect(wrapper.text()).toMatch(/current progress/i)
+    it('should have a label', () => {
+        expect(screen.getByText(/current progress/i)).toBeInTheDocument()
     })
 
-    it('should have the correct inputs', () => {
-        expect(wrapper.find(InitialSyncInput)).toHaveLength(1)
-        expect(wrapper.find(HuntsLeftInput)).toHaveLength(1)
-        expect(wrapper.find(StepsInput)).toHaveLength(1)
+    it('should have three inputs', () => {
+        expect(screen.getByLabelText(/sync/i)).toBeInTheDocument()
+        expect(screen.getByLabelText(/hunts left/i)).toBeInTheDocument()
+        expect(screen.getByLabelText(/steps/i)).toBeInTheDocument()
     })
 
-    it('should have a Tooltip > InfoOutlined', () => {
-        const infoTooltip = wrapper.find(Tooltip).filterWhere((node) => node.contains(<InfoIconOutlined />))
-        expect(infoTooltip).toHaveLength(1)
+    it('should have a tooltip', () => {
+        expect(screen.getByTitle(/final sync level/i)).toBeInTheDocument()
     })
 
-    it('should have a button to reset progress', () => {
-        const btn = wrapper.find(Button).filter('#btn-reset-run')
-        expect(btn).toHaveLength(1)
-        expect(btn.text()).toMatch(/reset progress/i)
+    it('should handle changes in InitialSyncInput', () => {
+        fireEvent.keyDown(screen.getByLabelText(/sync/i), KeyEvents.ArrowDown)
+        fireEvent.click(screen.getByText(/Lvl\. 2/))
+        expect(dispatchSpy).toBeCalledWith(updateInitialSync(50))
     })
 
-    it('should match snapshot', () => {
-        expect(wrapper).toMatchSnapshot()
+    it('should handle changes in HuntsLeftInput', () => {
+        const huntsLeftInput = screen.getByLabelText(/hunts left/i)
+
+        fireEvent.change(huntsLeftInput, createChangeEvent('20'))
+        expect(dispatchSpy).toBeCalledWith(updateHuntsLeft(20))
+    })
+
+    it('should handle changes in StepsInput', () => {
+        const stepsInput = screen.getByLabelText(/steps/i)
+
+        fireEvent.change(stepsInput, createChangeEvent('15'))
+        expect(dispatchSpy).toBeCalledWith(updateSteps(15))
+    })
+
+    // TODO: Button to reset progress
+    it('should have a working reset button', () => {
+        const button = screen.getByRole('button', { name: /reset progress/i })
+
+        expect(button).toBeInTheDocument()
+        fireEvent.click(button)
+        expect(dispatchSpy).toBeCalledWith(updateHuntsLeft(100))
+        expect(dispatchSpy).toBeCalledWith(updateSteps(0))
     })
 })
