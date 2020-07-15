@@ -14,7 +14,7 @@ interface BaseNumericInputProps {
     label: string
 }
 
-export type IntegerInputProps = BaseNumericInputProps & Pick<TextFieldProps, 'fullWidth'>
+export type IntegerInputProps = BaseNumericInputProps & Pick<TextFieldProps, 'fullWidth' | 'InputProps' | 'disabled'>
 
 const IntegerInput = (props: IntegerInputProps): JSX.Element => {
     const { onChange, min, max, value, variant, ...other } = props
