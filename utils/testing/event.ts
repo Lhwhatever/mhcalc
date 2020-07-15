@@ -6,10 +6,14 @@ export interface InputChangeEventOptions {
 
 export const createChangeEvent = (value: string): InputChangeEventOptions => ({ target: { value } })
 
-export interface KeyEventOptions {
+export class KeyEventOptions {
     key: string
+
+    constructor(key: string) {
+        this.key = key
+    }
 }
 
-export const KeyEvents: Record<string, KeyEventOptions> = {
-    ArrowDown: { key: 'ArrowDown' }
+export const KeyEvents = {
+    ArrowDown: new KeyEventOptions('ArrowDown')
 }
