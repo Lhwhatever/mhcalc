@@ -32,7 +32,7 @@ describe('CurrentProgressInputGroup test', () => {
     })
 
     it('should handle changes in InitialSyncInput', async () => {
-        await setupMuiSelectTest(screen.getByLabelText(/^sync$/i), async () => screen.findAllByText(/Lvl\. 2/))
+        await setupMuiSelectTest(screen.getByLabelText(/^sync$/i), () => screen.findAllByText(/Lvl\. 2/))
         fireEvent.click(screen.getByText(/Lvl\. 2/))
         expect(dispatchSpy).toBeCalledWith(updateInitialSync(50))
     })
