@@ -8,7 +8,7 @@ interface BaseSpeedInputProps {
     onChange: (newSpeed: Speed) => void
 }
 
-export type SpeedInputProps = BaseSpeedInputProps & Omit<TextFieldProps, 'defaultValue'>
+export type SpeedInputProps = BaseSpeedInputProps & Omit<TextFieldProps, 'defaultValue' | 'onChange'>
 
 const SpeedInput = (props: SpeedInputProps): JSX.Element => {
     const { onChange, ...other } = props
