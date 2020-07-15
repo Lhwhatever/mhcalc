@@ -2,9 +2,9 @@ import React from 'react'
 import { updateHuntsLeft, updateInitialSync, updateSteps } from '../../../../redux/ducks/vrift/simInput'
 import { createChangeEvent } from '../../../../utils/testing/event'
 import mockStore from '../../../../utils/testing/mockStore'
+import { setupMuiSelectTest } from '../../../../utils/testing/other'
 import { createRenderWithRedux, fireEvent, screen } from '../../../../utils/testing/test'
 import CurrentProgressInputGroup from '../CurrentProgressInputGroup'
-import { setupMuiSelectTest } from '../../../../utils/testing/other'
 
 describe('CurrentProgressInputGroup test', () => {
     const store = mockStore({

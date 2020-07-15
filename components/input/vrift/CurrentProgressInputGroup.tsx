@@ -3,11 +3,11 @@ import InfoIconOutlined from '@material-ui/icons/InfoOutlined'
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { updateHuntsLeft, updateInitialSync, updateSteps } from '../../../redux/ducks/vrift/simInput'
+import { Sync } from '../../../redux/ducks/vrift/stats'
 import { RootState } from '../../../redux/rootReducer'
-import { InputChangeEvent } from '../types'
 import HuntsLeftInput from './HuntsLeftInput'
 import { SyncIcon } from './Icons'
-import InitialSyncInput, { InitialSync } from './InitialSyncInput'
+import InitialSyncInput from './InitialSyncInput'
 import StepsInput from './StepsInput'
 
 const useStyles = makeStyles((theme) => ({
@@ -42,8 +42,8 @@ const CurrentProgressInputGroup = (): JSX.Element => {
     const { initialSync, huntsLeft, steps } = useSelector((state: RootState) => state.vrift.simInput)
     const dispatch = useDispatch()
 
-    const handleInitialSyncChange = (event: InputChangeEvent) => {
-        dispatch(updateInitialSync(parseInt(event.target.value) as InitialSync))
+    const handleInitialSyncChange = (initialSync: Sync) => {
+        dispatch(updateInitialSync(initialSync))
     }
 
     const handleHuntsLeftChange = (huntsLeft: number | undefined) => {

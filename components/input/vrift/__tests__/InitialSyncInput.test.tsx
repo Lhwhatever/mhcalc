@@ -1,12 +1,11 @@
 import React from 'react'
 import { setupMuiSelectTest } from '../../../../utils/testing/other'
 import { fireEvent, render, screen } from '../../../../utils/testing/test'
-import { InputChangeEvent } from '../../types'
 import InitialSyncInput from '../InitialSyncInput'
 
 describe('InitialSyncInput test', () => {
     const getSelectField = () => screen.getByLabelText(/sync/i)
-    const handleChange = jest.fn((event: InputChangeEvent) => event.target.value)
+    const handleChange = jest.fn()
 
     beforeEach(() => {
         render(<InitialSyncInput id="sync-input" value={100} onChange={handleChange} />)
@@ -38,7 +37,7 @@ describe('InitialSyncInput test', () => {
 
         fireEvent.click(screen.getByText(/Lvl\. 2/i))
         expect(handleChange).toBeCalled()
-        expect(handleChange).lastReturnedWith(50)
+        expect(handleChange).lastCalledWith(50)
     })
 
     it('should match snapshot', () => {

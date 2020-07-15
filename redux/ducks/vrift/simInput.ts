@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { InitialSync } from '../../../components/input/vrift/InitialSyncInput'
+import { Sync } from './stats'
 
 export interface Augments {
     sigilHunter?: boolean
@@ -10,7 +10,7 @@ export interface Augments {
 }
 
 export interface SimInputsState {
-    initialSync: InitialSync
+    initialSync: Sync
     huntsLeft?: number
     steps?: number
     augments: Augments
@@ -32,7 +32,7 @@ const simInputsSlice = createSlice({
     name: 'simInputs',
     initialState,
     reducers: {
-        updateInitialSync(state, action: PayloadAction<InitialSync>) {
+        updateInitialSync(state, action: PayloadAction<Sync>) {
             state.initialSync = action.payload
         },
         updateHuntsLeft(state, action: PayloadAction<number | undefined>) {
