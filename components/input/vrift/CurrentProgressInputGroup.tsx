@@ -1,13 +1,14 @@
-import { Avatar, Box, Button, makeStyles, Tooltip, Typography } from '@material-ui/core'
+import { Box, Button, makeStyles, Tooltip, Typography } from '@material-ui/core'
 import InfoIconOutlined from '@material-ui/icons/InfoOutlined'
 import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { updateHuntsLeft, updateInitialSync, updateSteps } from '../../../redux/ducks/vrift/simInput'
+import { RootState } from '../../../redux/rootReducer'
 import { InputChangeEvent } from '../types'
 import HuntsLeftInput from './HuntsLeftInput'
+import { SyncIcon } from './Icons'
 import InitialSyncInput, { InitialSync } from './InitialSyncInput'
 import StepsInput from './StepsInput'
-import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '../../../redux/rootReducer'
-import { updateInitialSync, updateHuntsLeft, updateSteps } from '../../../redux/ducks/vrift/simInput'
 
 const useStyles = makeStyles((theme) => ({
     inputGrid: {
@@ -63,11 +64,7 @@ const CurrentProgressInputGroup = (): JSX.Element => {
             <Typography variant="h4">Current Progress</Typography>
             <Box className={classes.inputGrid} mt={2}>
                 <div className={classes.inputIconLabel}>
-                    <Avatar
-                        alt="Sync"
-                        src="https://www.mousehuntgame.com/images/ui/hud/rift_valour/power_up_stamina.png"
-                        variant="rounded"
-                    />
+                    <SyncIcon />
                 </div>
                 <div className={classes.inputField}>
                     <InitialSyncInput
