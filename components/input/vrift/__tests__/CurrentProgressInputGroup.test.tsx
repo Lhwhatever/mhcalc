@@ -2,7 +2,7 @@ import React from 'react'
 import { updateHuntsLeft, updateInitialSync, updateSteps } from '../../../../redux/ducks/vrift/simInput'
 import { createChangeEvent } from '../../../../utils/testing/event'
 import mockStore from '../../../../utils/testing/mockStore'
-import { setupMuiSelectTest } from '../../../../utils/testing/other'
+import { selectMuiSelectOption } from '../../../../utils/testing/other'
 import { createRenderWithRedux, fireEvent, screen } from '../../../../utils/testing/test'
 import CurrentProgressInputGroup from '../CurrentProgressInputGroup'
 
@@ -32,8 +32,7 @@ describe('CurrentProgressInputGroup test', () => {
     })
 
     it('should handle changes in InitialSyncInput', async () => {
-        await setupMuiSelectTest(screen.getByLabelText(/^sync$/i), () => screen.findAllByText(/Lvl\. 2/))
-        fireEvent.click(screen.getByRole('option', { name: /Lvl\. 2/ }))
+        await selectMuiSelectOption(screen.getByLabelText(/^sync$/i), /Lvl\. 2/i)
         expect(dispatchSpy).toBeCalledWith(updateInitialSync(50))
     })
 

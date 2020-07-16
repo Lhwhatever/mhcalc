@@ -1,6 +1,6 @@
 import React from 'react'
-import { setupMuiSelectTest } from '../../../../utils/testing/other'
-import { fireEvent, render, screen } from '../../../../utils/testing/test'
+import { openMuiSelect, selectMuiSelectOption } from '../../../../utils/testing/other'
+import { render, screen } from '../../../../utils/testing/test'
 import InitialSyncInput from '../InitialSyncInput'
 
 describe('InitialSyncInput test', () => {
@@ -18,7 +18,7 @@ describe('InitialSyncInput test', () => {
 
     it('should have all 7 options', async () => {
         const selectField = getSelectField()
-        await setupMuiSelectTest(selectField, () => screen.findAllByText(/Lvl\./i))
+        await openMuiSelect(selectField)
 
         for (let i = 1; i <= 7; ++i) {
             const matcher = new RegExp('Lvl. ' + i, 'i')
@@ -33,9 +33,7 @@ describe('InitialSyncInput test', () => {
 
     it('should pass change events to the given handler', async () => {
         const selectField = getSelectField()
-        await setupMuiSelectTest(selectField, () => screen.findAllByText(/Lvl\./i))
-
-        fireEvent.click(screen.getByRole('option', { name: /Lvl\. 2/i }))
+        await selectMuiSelectOption(selectField, /Lvl\. 2/i)
         expect(handleChange).toBeCalled()
         expect(handleChange).lastCalledWith(50)
     })
