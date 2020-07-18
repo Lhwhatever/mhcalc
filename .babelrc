@@ -1,0 +1,14 @@
+{
+    "presets": [
+        [
+            "next/babel",
+            {
+                "preset-typescript": {
+                    "parserOpts": {
+                        "strictMode": true
+                    }
+                }
+            }
+        ]
+    ]
+}
