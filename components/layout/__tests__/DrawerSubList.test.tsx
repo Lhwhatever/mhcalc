@@ -59,7 +59,6 @@ describe('DrawerSubList tests', () => {
         wrapper.setProps({ subheader: 'foo' })
         wrapperList = wrapper.find(List)
         expect(wrapperList.prop('subheader')).toBeDefined()
-        console.log(wrapperList.prop('subheader'))
         const wrapperSubheader = shallow(wrapperList.prop('subheader') as ReactElement)
 
         expect(wrapperSubheader.text()).toStrictEqual('foo')
