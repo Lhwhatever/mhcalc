@@ -121,7 +121,7 @@ describe('SetupInputGroup test (mobile variant)', () => {
         const siphonInput = screen.queryByLabelText(/siphon/i)
         expect(siphonInput).toBeInTheDocument()
 
-        await selectMuiSelectOption(siphonInput, /Lvl\. 2/i)
+        await selectMuiSelectOption(siphonInput!, /Lvl\. 2/i)
         expect(dispatchSpy).toBeCalledWith(updateSiphon(10, 1))
 
         await selectFloor(tabs[1])
