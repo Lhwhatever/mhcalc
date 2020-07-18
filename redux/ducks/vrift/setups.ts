@@ -35,9 +35,11 @@ type Action<V> = {
     value: V
 }
 
-const prepareFunc = <T extends keyof SetupState, V>(type: T, value: V, level: number) => ({
-    payload: { type, level, value }
-})
+const createPrepare = <S extends keyof BaseSetupState>() => (
+    type: keyof SetupState,
+    value: BaseSetupState[S],
+    level: number
+) => ({ payload: { type, level, value } })
 
 const createReducer = <S extends keyof BaseSetupState>(stat: S) => (
     state: SetupState,
@@ -49,7 +51,7 @@ const createReducer = <S extends keyof BaseSetupState>(stat: S) => (
 
 const create = <S extends keyof BaseSetupState>(stat: S) => ({
     reducer: createReducer(stat),
-    prepare: prepareFunc
+    prepare: createPrepare<S>()
 })
 
 const setupsSlice = createSlice({
