@@ -8,12 +8,13 @@
         "dev": "next dev",
         "lint": "eslint",
         "build": "next build",
-        "start": "next start"
+        "start": "next start",
+        "tsc": "tsc"
     },
     "husky": {
         "hooks": {
-            "pre-commit": "npm run lint .",
-            "pre-push": "npm test && npm version prerelease"
+            "pre-commit": "yarn run lint . && yarn run tsc --noEmit",
+            "pre-push": "yarn test && yarn version --prerelease"
         }
     },
     "dependencies": {
