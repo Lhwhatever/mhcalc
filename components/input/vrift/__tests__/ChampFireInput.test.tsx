@@ -3,12 +3,13 @@ import { createSetup, screen } from '../../../../utils/testing/test'
 import ChampFireInput, { ChampFireInputProps } from '../ChampFireInput'
 
 describe('ChampFireInput test', () => {
-    let rerender: (additionalProps: Partial<Omit<ChampFireInputProps, 'onChange'>>) => void
+    let rerender: (additionalProps: Partial<ChampFireInputProps>) => void
     let switchElem: HTMLElement
     const onChange = jest.fn()
+    const setup = createSetup(ChampFireInput, { value: false, onChange } as Partial<ChampFireInputProps>)
 
     beforeEach(() => {
-        rerender = createSetup(ChampFireInput, { value: false, onChange })().rerender
+        rerender = setup().rerender
         switchElem = screen.getByRole('checkbox', { name: /champion's fire/i, queryFallbacks: true })
     })
 
@@ -31,5 +32,10 @@ describe('ChampFireInput test', () => {
         rerender({ value: true })
         userEvent.click(switchElem)
         expect(onChange).lastCalledWith(false)
+    })
+
+    it('should have a working default for onChange', () => {
+        rerender({ onChange: undefined })
+        expect(screen.getByRole('switch', { name: /champion's fire/i })).toBeInTheDocument()
     })
 })

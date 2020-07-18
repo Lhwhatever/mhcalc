@@ -33,6 +33,7 @@ describe('setup test', () => {
         expect(setups.updateSpeed('regular', 5, 9).payload).toMatchObject({ type: 'regular', value: 5, level: 9 })
 
         expect(setups.updateSiphon(20, 1).payload).toMatchObject({ value: 20, level: 1 })
+        expect(setups.updateSiphon(15).payload).toMatchObject({ value: 15, level: 1 })
     })
 
     it('should have working reducers', () => {
