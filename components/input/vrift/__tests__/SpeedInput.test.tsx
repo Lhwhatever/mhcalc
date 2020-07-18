@@ -21,9 +21,9 @@ describe('SpeedInput test', () => {
         await openMuiSelect(selectField)
 
         for (let i = 1; i <= 10; ++i) {
-            const matcher = new RegExp(`Lvl. ${i} `, 'i') // Trailing space necessary to differentiate between 1 and 10
+            const matcher = new RegExp(`\\bLvl. ${i}\\b`, 'i')
             const speed = i.toString()
-            const option = screen.getByRole('option', { name: new RegExp(speed + ' ') })
+            const option = screen.getByRole('option', { name: new RegExp(`\\b${speed} speed\\b`, 'i') })
 
             expect(option).toBeInTheDocument()
             expect(option).toHaveTextContent(matcher)
