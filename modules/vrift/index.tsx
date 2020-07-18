@@ -3,6 +3,7 @@ import React from 'react'
 import AugmentInputGroup from '../../components/input/vrift/AugmentInputGroup'
 import CurrentProgressInputGroup from '../../components/input/vrift/CurrentProgressInputGroup'
 import Layout from '../../components/layout/Layout'
+import SetupInputGroup from '../../components/input/vrift/SetupInputGroup'
 
 const useStyles = makeStyles((theme) => ({
     inputRoot: {
@@ -15,6 +16,9 @@ const useStyles = makeStyles((theme) => ({
         [theme.breakpoints.up('lg')]: {
             gridTemplateColumns: '1fr 2fr'
         }
+    },
+    setupInput: {
+        gridColumn: '1 / -1'
     }
 }))
 
@@ -26,6 +30,7 @@ export default function ValourRiftSimPage(): JSX.Element {
             <div className={classes.inputRoot}>
                 <CurrentProgressInputGroup />
                 <AugmentInputGroup />
+                <SetupInputGroup className={classes.setupInput} />
             </div>
         </Layout>
     )
