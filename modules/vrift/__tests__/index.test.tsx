@@ -1,6 +1,11 @@
 import React from 'react'
 import { render, screen } from '../../../utils/testing/test'
 import ValourRiftSimPage from '../index'
+import Layout from '../../../components/layout/Layout'
+import { mocked } from 'ts-jest/utils'
+import CurrentProgressInputGroup from '../../../components/input/vrift/CurrentProgressInputGroup'
+import AugmentInputGroup from '../../../components/input/vrift/AugmentInputGroup'
+import SetupInputGroup from '../../../components/input/vrift/SetupInputGroup'
 
 const testIds = {
     layout: 'Layout',
@@ -11,23 +16,31 @@ const testIds = {
 
 jest.mock('../../../components/layout/Layout', () => ({
     __esModule: true,
-    default: jest.fn(({ children }) => <div data-testid={testIds.layout}>{children}</div>)
+    default: jest.fn()
 }))
+
+mocked(Layout).mockImplementation(({ children }) => <div data-testid={testIds.layout}>{children}</div>)
 
 jest.mock('../../../components/input/vrift/CurrentProgressInputGroup', () => ({
     __esModule: true,
-    default: jest.fn(() => <div data-testid={testIds.currentProgress} />)
+    default: jest.fn()
 }))
+
+mocked(CurrentProgressInputGroup).mockReturnValue(<div data-testid={testIds.currentProgress} />)
 
 jest.mock('../../../components/input/vrift/AugmentInputGroup', () => ({
     __esModule: true,
-    default: jest.fn(() => <div data-testid={testIds.augmentInput} />)
+    default: jest.fn()
 }))
+
+mocked(AugmentInputGroup).mockReturnValue(<div data-testid={testIds.augmentInput} />)
 
 jest.mock('../../../components/input/vrift/SetupInputGroup', () => ({
     __esModule: true,
-    default: jest.fn(() => <div data-testid={testIds.setupInput} />)
+    default: jest.fn()
 }))
+
+mocked(SetupInputGroup).mockReturnValue(<div data-testid={testIds.setupInput} />)
 
 describe('ValourRiftSimPage test', () => {
     beforeEach(() => {
