@@ -19,12 +19,12 @@ exports[`/ tests should render correctly 1`] = `
   >
     MouseHunt is a trademark of HitGrab Inc. I do not claim ownership of MouseHunt, its associated trademarks or its art assets.
   </WithStyles(ForwardRef(Typography))>
-  <Component />
+  <IndexButtons />
 </Layout>
 `;
 
 exports[`mounted IndexButtons should render correctly 1`] = `
-<Component>
+<IndexButtons>
   <Styled(MuiBox)
     alignItems="center"
     display="flex"
@@ -185,5 +185,5 @@ exports[`mounted IndexButtons should render correctly 1`] = `
       </Styled(AsNextLink(WithStyles(ForwardRef(Button))))>
     </div>
   </Styled(MuiBox)>
-</Component>
+</IndexButtons>
 `;
