@@ -1,6 +1,21 @@
 import reducer, * as setups from '../setups'
 
 describe('setups (store slice) test', () => {
+    const state: setups.SetupState = {
+        speed: { [1]: 5, [2]: 7 },
+        siphon: { [1]: 5, [2]: 10 },
+        regular: {
+            power: { [1]: 5000, [2]: 6000 },
+            luck: { [1]: 30, [2]: 40 },
+            champFire: { [1]: false, [2]: true }
+        },
+        eclipse: {
+            power: { [1]: 5000, [2]: 6000 },
+            luck: { [1]: 30, [2]: 40 },
+            champFire: { [1]: false, [2]: true }
+        }
+    }
+
     describe('test updating reducers', () => {
         const initialState = setups.initialState
 
@@ -70,60 +85,96 @@ describe('setups (store slice) test', () => {
     })
 
     describe('test deleting reducers', () => {
-        const initialState: setups.SetupState = {
-            speed: { [1]: 5, [2]: 7 },
-            siphon: { [1]: 5, [2]: 10 },
-            regular: {
-                power: { [1]: 5000, [2]: 6000 },
-                luck: { [1]: 30, [2]: 40 },
-                champFire: { [1]: false, [2]: true }
-            },
-            eclipse: {
-                power: { [1]: 5000, [2]: 6000 },
-                luck: { [1]: 30, [2]: 40 },
-                champFire: { [1]: false, [2]: true }
-            }
-        }
-
         test('deleting speed will work for floor > 1', () => {
-            expect(reducer(initialState, setups.deleteSpeed(1)).speed).toHaveProperty('1', 5)
-            expect(reducer(initialState, setups.deleteSpeed(2)).speed).not.toHaveProperty('2')
+            expect(reducer(state, setups.deleteSpeed(1)).speed).toHaveProperty('1', 5)
+            expect(reducer(state, setups.deleteSpeed(2)).speed).not.toHaveProperty('2')
         })
 
         test('deleting siphon will work for floor > 1', () => {
-            expect(reducer(initialState, setups.deleteSiphon(1)).siphon).toHaveProperty('1', 5)
-            expect(reducer(initialState, setups.deleteSiphon(2)).siphon).not.toHaveProperty('2')
+            expect(reducer(state, setups.deleteSiphon(1)).siphon).toHaveProperty('1', 5)
+            expect(reducer(state, setups.deleteSiphon(2)).siphon).not.toHaveProperty('2')
         })
 
         test('deleting power will work for floor > 1', () => {
-            expect(reducer(initialState, setups.deletePower('regular', 1))).toHaveProperty('regular.power.1', 5000)
-            expect(reducer(initialState, setups.deletePower('regular', 2))).not.toHaveProperty('regular.power.2')
-            expect(reducer(initialState, setups.deletePower('eclipse', 1))).toHaveProperty('eclipse.power.1', 5000)
-            expect(reducer(initialState, setups.deletePower('eclipse', 2))).not.toHaveProperty('eclipse.power.2')
+            expect(reducer(state, setups.deletePower('regular', 1))).toHaveProperty('regular.power.1', 5000)
+            expect(reducer(state, setups.deletePower('regular', 2))).not.toHaveProperty('regular.power.2')
+            expect(reducer(state, setups.deletePower('eclipse', 1))).toHaveProperty('eclipse.power.1', 5000)
+            expect(reducer(state, setups.deletePower('eclipse', 2))).not.toHaveProperty('eclipse.power.2')
         })
 
         test('deleting luck will work for floor > 1', () => {
-            expect(reducer(initialState, setups.deleteLuck('regular', 1))).toHaveProperty('regular.luck.1', 30)
-            expect(reducer(initialState, setups.deleteLuck('regular', 2))).not.toHaveProperty('regular.luck.2')
-            expect(reducer(initialState, setups.deleteLuck('eclipse', 1))).toHaveProperty('eclipse.luck.1', 30)
-            expect(reducer(initialState, setups.deleteLuck('eclipse', 2))).not.toHaveProperty('eclipse.luck.2')
+            expect(reducer(state, setups.deleteLuck('regular', 2))).not.toHaveProperty('regular.luck.2')
+            expect(reducer(state, setups.deleteLuck('eclipse', 1))).toHaveProperty('eclipse.luck.1', 30)
+            expect(reducer(state, setups.deleteLuck('eclipse', 2))).not.toHaveProperty('eclipse.luck.2')
         })
 
         test('deleting CF will work for floor > 1', () => {
-            expect(reducer(initialState, setups.deleteChampFire('regular', 1))).toHaveProperty(
-                'regular.champFire.1',
-                false
+            expect(reducer(state, setups.deleteChampFire('regular', 1))).toHaveProperty('regular.champFire.1', false)
+            expect(reducer(state, setups.deleteChampFire('regular', 2))).not.toHaveProperty('regular.champFire.2')
+            expect(reducer(state, setups.deleteChampFire('eclipse', 1))).toHaveProperty('eclipse.champFire.1', false)
+            expect(reducer(state, setups.deleteChampFire('eclipse', 2))).not.toHaveProperty('eclipse.champFire.2')
+        })
+    })
+
+    describe('test changing reducers', () => {
+        test('changing floors will work for speed', () => {
+            const newState = reducer(state, setups.changeFloorOfStat({ stat: 'speed', oldFloor: 2, newFloor: 9 }))
+            expect(newState.speed).toHaveProperty('9', 7)
+            expect(newState.speed).not.toHaveProperty('2')
+        })
+
+        test('changing floors will work for siphon', () => {
+            const newState = reducer(state, setups.changeFloorOfStat({ stat: 'siphon', oldFloor: 2, newFloor: 9 }))
+            expect(newState.siphon).toHaveProperty('9', 10)
+            expect(newState.siphon).not.toHaveProperty('2')
+        })
+
+        test('changing floors will work for power', () => {
+            let newState = reducer(
+                state,
+                setups.changeFloorOfStat({ stat: 'power', target: 'regular', oldFloor: 2, newFloor: 9 })
             )
-            expect(reducer(initialState, setups.deleteChampFire('regular', 2))).not.toHaveProperty(
-                'regular.champFire.2'
+            expect(newState.regular.power).toHaveProperty('9', 6000)
+            expect(newState.regular.power).not.toHaveProperty('2')
+
+            newState = reducer(
+                state,
+                setups.changeFloorOfStat({ stat: 'power', target: 'eclipse', oldFloor: 2, newFloor: 8 })
             )
-            expect(reducer(initialState, setups.deleteChampFire('eclipse', 1))).toHaveProperty(
-                'eclipse.champFire.1',
-                false
+            expect(newState.eclipse.power).toHaveProperty('8', 6000)
+            expect(newState.eclipse.power).not.toHaveProperty('2')
+        })
+
+        test('changing floors will work for luck', () => {
+            let newState = reducer(
+                state,
+                setups.changeFloorOfStat({ stat: 'luck', target: 'regular', oldFloor: 2, newFloor: 9 })
             )
-            expect(reducer(initialState, setups.deleteChampFire('eclipse', 2))).not.toHaveProperty(
-                'eclipse.champFire.2'
+            expect(newState.regular.luck).toHaveProperty('9', 40)
+            expect(newState.regular.luck).not.toHaveProperty('2')
+
+            newState = reducer(
+                state,
+                setups.changeFloorOfStat({ stat: 'luck', target: 'eclipse', oldFloor: 2, newFloor: 8 })
             )
+            expect(newState.eclipse.luck).toHaveProperty('8', 40)
+            expect(newState.eclipse.luck).not.toHaveProperty('2')
+        })
+
+        test('changing floors will work for champion fire', () => {
+            let newState = reducer(
+                state,
+                setups.changeFloorOfStat({ stat: 'champFire', target: 'regular', oldFloor: 2, newFloor: 9 })
+            )
+            expect(newState.regular.champFire).toHaveProperty('9', true)
+            expect(newState.regular.champFire).not.toHaveProperty('2')
+
+            newState = reducer(
+                state,
+                setups.changeFloorOfStat({ stat: 'champFire', target: 'eclipse', oldFloor: 2, newFloor: 8 })
+            )
+            expect(newState.eclipse.champFire).toHaveProperty('8', true)
+            expect(newState.eclipse.champFire).not.toHaveProperty('2')
         })
     })
 })

@@ -1,11 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { Siphon, Speed } from './stats'
 
+type SharedStat = 'speed' | 'siphon'
+
 export interface BaseSetupState {
     power: Record<number, number | undefined>
     luck: Record<number, number | undefined>
     champFire: Record<number, boolean>
 }
+
+type FloorType = 'regular' | 'eclipse'
 
 export interface SetupState {
     speed: Record<number, Speed>
@@ -28,7 +32,7 @@ interface UpdateSharedStatPayload<T> {
 
 interface UpdateStatPayload<T> {
     floor: number
-    target: 'regular' | 'eclipse'
+    target: FloorType
     value: T
 }
 
@@ -38,7 +42,20 @@ interface DeleteSharedStatPayload {
 
 interface DeleteStatPayload {
     floor: number
-    target: 'regular' | 'eclipse'
+    target: FloorType
+}
+
+interface ChangeSharedStatFloorPayload {
+    stat: SharedStat
+    oldFloor: number
+    newFloor: number
+}
+
+interface ChangeStatFloorPayload {
+    stat: keyof BaseSetupState
+    target: FloorType
+    oldFloor: number
+    newFloor: number
 }
 
 const updateSharedStat = <T>(statRecord: Record<number, T>, payload: UpdateSharedStatPayload<T>) => {
@@ -53,14 +70,14 @@ const updateSharedStat = <T>(statRecord: Record<number, T>, payload: UpdateShare
     statRecord[floor] = value
 }
 
-const deleteSharedStatFactory = <T extends 'speed' | 'siphon'>(stat: T) => ({
+const createReducerDeleteSharedStat = <T extends SharedStat>(stat: T) => ({
     reducer: (state: SetupState, action: PayloadAction<DeleteSharedStatPayload>) => {
         if (action.payload.floor > 1) delete state[stat][action.payload.floor]
     },
     prepare: (floor: number) => ({ payload: { floor } })
 })
 
-const deleteStatFactory = <T extends keyof BaseSetupState>(stat: T) => ({
+const createReducerDeleteStat = <T extends keyof BaseSetupState>(stat: T) => ({
     prepare: (target: 'eclipse' | 'regular', floor: number) => ({ payload: { target, floor } }),
     reducer: (state: SetupState, action: PayloadAction<DeleteStatPayload>) => {
         const { target, floor } = action.payload
@@ -90,13 +107,35 @@ const setupsSlice = createSlice({
             const { floor, target, value } = action.payload
             state[target].champFire[floor] = value
         },
-        deleteSpeed: deleteSharedStatFactory('speed'),
-        deleteSiphon: deleteSharedStatFactory('siphon'),
-        deletePower: deleteStatFactory('power'),
-        deleteLuck: deleteStatFactory('luck'),
-        deleteChampFire: deleteStatFactory('champFire')
+        deleteSpeed: createReducerDeleteSharedStat('speed'),
+        deleteSiphon: createReducerDeleteSharedStat('siphon'),
+        deletePower: createReducerDeleteStat('power'),
+        deleteLuck: createReducerDeleteStat('luck'),
+        deleteChampFire: createReducerDeleteStat('champFire'),
+        changeFloorSharedStat(state, action: PayloadAction<ChangeSharedStatFloorPayload>) {
+            const { stat, oldFloor, newFloor } = action.payload
+            state[stat][newFloor] = state[stat][oldFloor]
+            delete state[stat][oldFloor]
+        },
+        changeFloorStat(state, action: PayloadAction<ChangeStatFloorPayload>) {
+            const { stat, oldFloor, target, newFloor } = action.payload
+            state[target][stat][newFloor] = state[target][stat][oldFloor]
+            delete state[target][stat][oldFloor]
+        }
     }
 })
+
+export function changeFloorOfStat(payload: ChangeStatFloorPayload): PayloadAction<ChangeStatFloorPayload>
+export function changeFloorOfStat(payload: ChangeSharedStatFloorPayload): PayloadAction<ChangeSharedStatFloorPayload>
+export function changeFloorOfStat(
+    payload: ChangeSharedStatFloorPayload | ChangeStatFloorPayload
+): PayloadAction<ChangeStatFloorPayload> | PayloadAction<ChangeSharedStatFloorPayload> {
+    if ('target' in payload) {
+        return setupsSlice.actions.changeFloorStat(payload)
+    } else {
+        return setupsSlice.actions.changeFloorSharedStat(payload)
+    }
+}
 
 export const { updateSpeed, updateSiphon, updatePower, updateLuck, updateChampFire } = setupsSlice.actions
 export const { deleteSpeed, deleteSiphon, deletePower, deleteLuck, deleteChampFire } = setupsSlice.actions
