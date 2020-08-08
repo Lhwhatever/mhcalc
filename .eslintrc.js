@@ -24,9 +24,11 @@ module.exports = {
     plugins: ['react', '@typescript-eslint', 'react-hooks'],
     rules: {
         'linebreak-style': ['error', 'unix'],
-        quotes: ['error', 'single'],
         semi: ['error', 'never'],
+        quotes: ['error', 'single', { avoidEscape: true }],
+        'prettier/prettier': ['error'],
         '@typescript-eslint/no-non-null-assertion': 'off',
+        '@typescript-eslint/ban-types': 'off',
         'react-hooks/rules-of-hooks': 'error',
         'react-hooks/exhaustive-deps': 'warn'
     },
