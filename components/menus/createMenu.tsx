@@ -8,14 +8,19 @@ export interface MenuItem {
     onClick: (event: LiMouseEvent) => void
 }
 
-export interface Settings {
+export interface MenuProps {
     menuId: string
     ariaLabel?: string
-    componentDisplayName?: string
 }
 
-function createMenu(menuItems: MenuItem[], settings: Settings): React.FC {
-    const { menuId, ariaLabel, componentDisplayName } = settings
+/**
+ * Creates a menu attached to a given menu button.
+ * @param item An array of MenuItem specifying how the menu is to be created.
+ * @param menuProps Props that define attributes of the menu itself.
+ * @returns The menu
+ */
+function createMenu(menuItems: MenuItem[], menuProps: MenuProps): React.FC {
+    const { menuId, ariaLabel } = menuProps
 
     return Object.assign(
         (): JSX.Element => {
@@ -56,8 +61,7 @@ function createMenu(menuItems: MenuItem[], settings: Settings): React.FC {
                     </Menu>
                 </React.Fragment>
             )
-        },
-        { displayName: componentDisplayName }
+        }
     )
 }
 

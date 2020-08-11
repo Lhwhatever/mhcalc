@@ -9,28 +9,28 @@ describe('createMenu test', () => {
 
     const items = [{ item: 'foo', onClick: handlerFoo } as MenuItem]
     const altItems = items.concat([{ item: 'bar', onClick: handlerBar }])
-    const settings = { menuId: 'simple-menu', ariaLabel: 'open menu', componentDisplayName: 'Menu' }
+    const menuProps = { menuId: 'simple-menu', ariaLabel: 'open menu' }
 
     const getMenuButton = () => screen.getByRole('button', { name: /open menu/i })
 
     it('should create an icon button', () => {
-        render(React.createElement(createMenu([], settings)))
+        render(React.createElement(createMenu([], menuProps)))
         expect(getMenuButton()).toBeInTheDocument()
     })
 
     test('button should open a menu when clicked', () => {
-        render(React.createElement(createMenu(items, settings)))
+        render(React.createElement(createMenu(items, menuProps)))
         userEvent.click(getMenuButton())
         expect(screen.getByRole('menu')).toBeInTheDocument()
     })
 
     test('menu should render each of the menu items supplied', () => {
-        render(React.createElement(createMenu(items, settings)))
+        render(React.createElement(createMenu(items, menuProps)))
         userEvent.click(getMenuButton())
         expect(screen.getAllByRole('menuitem')).toHaveLength(1)
         expect(screen.getByRole('menuitem', { name: /foo/i })).toBeInTheDocument()
 
-        render(React.createElement(createMenu(altItems, settings)))
+        render(React.createElement(createMenu(altItems, menuProps)))
         userEvent.click(getMenuButton())
         expect(screen.getAllByRole('menuitem')).toHaveLength(2)
         expect(screen.getByRole('menuitem', { name: /foo/i })).toBeInTheDocument()
@@ -38,7 +38,7 @@ describe('createMenu test', () => {
     })
 
     test('menu items should trigger the given onClick and close the menu', () => {
-        render(React.createElement(createMenu(altItems, settings)))
+        render(React.createElement(createMenu(altItems, menuProps)))
 
         userEvent.click(getMenuButton())
         userEvent.click(screen.getByRole('menuitem', { name: /foo/i }))
