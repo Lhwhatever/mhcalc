@@ -14,8 +14,8 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "(git-branch-is -r \"^(master|preview)$\" && lint-staged) || git-branch-is -r --not \"^(master|preview)$\"",
-            "pre-push": "(git-branch-is -r \"^(master|preview)$\" && npm test) || git-branch-is -r --not \"^(master|preview)$\""
+            "pre-commit": "(git-branch-is -qr \"^(master|preview)$\" && lint-staged) || git-branch-is -qr --not \"^(master|preview)$\"",
+            "pre-push": "(git-branch-is -qr \"^(master|preview)$\" && npm test) || git-branch-is -qr --not \"^(master|preview)$\""
         }
     },
     "dependencies": {
