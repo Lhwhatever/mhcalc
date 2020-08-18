@@ -30,6 +30,17 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-# IDEs
-/.vscode/
+# eslint
+.eslintcache
+
+# deployment
+.vercel
+
+# IDEs and Editors
+/.vscode
+/.vim
+
+# ctags
 tags
+tags.lock
+tags.temp

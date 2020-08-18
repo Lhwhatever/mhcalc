@@ -7,14 +7,15 @@
         "test:watch": "jest --watch",
         "dev": "next dev",
         "lint": "eslint",
+        "lint:fix": "eslint --fix",
         "build": "next build",
         "start": "next start",
         "tsc": "tsc"
     },
     "husky": {
         "hooks": {
-            "pre-commit": "yarn run lint . && yarn run tsc --noEmit",
-            "pre-push": "yarn test && yarn version --prerelease"
+            "pre-commit": "(git-branch-is -r \"^(master|preview)$\" && lint-staged) || git-branch-is -r --not \"^(master|preview)$\"",
+            "pre-push": "(git-branch-is -r \"^(master|preview)$\" && npm test) || git-branch-is -r --not \"^(master|preview)$\""
         }
     },
     "dependencies": {
@@ -54,8 +55,10 @@
         "eslint-plugin-prettier": "^3.1.4",
         "eslint-plugin-react": "^7.20.0",
         "eslint-plugin-react-hooks": "^4.0.4",
+        "git-branch-is": "^4.0.0",
         "husky": "^4.2.5",
         "jest": "^26.1.0",
+        "lint-staged": ">=10",
         "prettier": "^2.0.5",
         "redux-mock-store": "^1.5.4",
         "ts-jest": "^26.1.1",
