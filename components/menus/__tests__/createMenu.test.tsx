@@ -30,11 +30,11 @@ describe('createMenu test', () => {
         expect(screen.getAllByRole('menuitem')).toHaveLength(1)
         expect(screen.getByRole('menuitem', { name: /foo/i })).toBeInTheDocument()
 
-        render(React.createElement(createMenu(altItems, menuProps)))
+        const alt = render(React.createElement(createMenu(altItems, menuProps)))
         userEvent.click(getMenuButton())
-        expect(screen.getAllByRole('menuitem')).toHaveLength(2)
-        expect(screen.getByRole('menuitem', { name: /foo/i })).toBeInTheDocument()
-        expect(screen.getByRole('menuitem', { name: /bar/i })).toBeInTheDocument()
+        expect(alt.getAllByRole('menuitem')).toHaveLength(2)
+        expect(alt.getByRole('menuitem', { name: /foo/i })).toBeInTheDocument()
+        expect(alt.getByRole('menuitem', { name: /bar/i })).toBeInTheDocument()
     })
 
     test('menu items should trigger the given onClick and close the menu', () => {
