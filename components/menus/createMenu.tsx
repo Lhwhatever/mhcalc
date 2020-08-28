@@ -5,7 +5,7 @@ import { ButtonMouseEvent, LiMouseEvent } from '../input/types'
 
 export interface MenuItem {
     item: React.ReactNode
-    onClick: (event: LiMouseEvent) => void
+    onClick?: (event: LiMouseEvent) => void
 }
 
 export interface MenuProps {
@@ -46,7 +46,7 @@ function createMenu(menuItems: MenuItem[], menuProps: MenuProps): React.FC {
                     </IconButton>
                     <Menu open={Boolean(anchor)} anchorEl={anchor} id={menuId} onClose={handleMenuClose} keepMounted>
                         {menuItems.map((menuItem, index) => {
-                            const { item, onClick } = menuItem
+                            const { item, onClick = () => undefined } = menuItem
                             const handleClick = (event: LiMouseEvent) => {
                                 handleMenuClose()
                                 onClick(event)
