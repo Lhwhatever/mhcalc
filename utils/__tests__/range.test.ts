@@ -12,5 +12,10 @@ describe('test range util functions', () => {
 
         expect(formatRange([1, 2])).toEqual(['1', '2+'])
         expect(formatRange([1, 3, 4])).toEqual(['1-2', '3', '4+'])
+
+        // Test for mutation
+        const testRange = [1, 2, 6]
+        expect(formatRange(testRange)).toEqual(['1', '2-5', '6+'])
+        expect(testRange).toEqual([1, 2, 6])
     })
 })
